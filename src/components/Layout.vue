@@ -2,7 +2,6 @@
   <div class="layout">
     <HeaderMenu />
     <router-view />
-    <Languages class="mt-4" />
   </div>
 </template>
 
@@ -15,7 +14,6 @@ import { User } from "firebase/auth";
 
 import { useI18nParam } from "@/i18n/utils";
 
-import Languages from "@/components/Languages.vue";
 import HeaderMenu from "@/components/HeaderMenu.vue";
 
 interface UserData {
@@ -25,7 +23,6 @@ interface UserData {
 export default defineComponent({
   name: "AppLayout",
   components: {
-    Languages,
     HeaderMenu,
   },
   async setup() {

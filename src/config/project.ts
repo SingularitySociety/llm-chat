@@ -1,11 +1,9 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyAd-pX35BsCvIBDXstf_LmQaz82PNFGcMI",
-  authDomain: "fir-vue-startup-kit.firebaseapp.com",
-  databaseURL: "https://fir-vue-startup-kit.firebaseio.com",
-  projectId: "fir-vue-startup-kit",
-  storageBucket: "fir-vue-startup-kit.appspot.com",
-  messagingSenderId: "225404938985",
-  appId: "1:225404938985:web:a2cea9fab1722fce",
-  messageKey:
-    "BGwIKr3yZdXmg4Pl-BpIQX_ETtHYl0RqvAJFoc-hYKFyaoU3wZXarqto5DSq1cemFuARMjFvJ02B83T5ga42MKo",
+  apiKey: "AIzaSyCO6YgbQqhXYONWiNZKiEG9UQNf_U-fKZ4",
+  authDomain: "llm-chat-6aa15.firebaseapp.com",
+  projectId: "llm-chat-6aa15",
+  storageBucket: "llm-chat-6aa15.appspot.com",
+  messagingSenderId: "101269450800",
+  appId: "1:101269450800:web:e07081d305ceb6b9d2bdf5",
+  measurementId: "G-964FFMF83X"
 };
