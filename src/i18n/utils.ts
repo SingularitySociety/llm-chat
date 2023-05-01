@@ -24,3 +24,25 @@ export const useI18nParam = () => {
   });
   i18n.locale.value = lang.value;
 };
+
+
+export const useLang = () => {
+  const i18n = useI18n();
+  const route = useRoute();
+
+  const lang = computed(() => {
+    return i18n.locale.value;
+  });
+
+  const localizedUrl = (path: string) => {
+    if (lang.value) {
+      return `/${lang.value}` + path;
+    }
+    return path;
+  };
+
+  return {
+    lang,
+    localizedUrl,
+  };
+};

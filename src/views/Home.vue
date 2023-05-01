@@ -6,7 +6,7 @@
         class="m-2 rounded-lg bg-sky-400 p-2 text-white"
         @click="choose(v)"
       >
-        {{ v }}
+        {{ $t("button." +v) }}
       </button>
     </span>
     <div>
