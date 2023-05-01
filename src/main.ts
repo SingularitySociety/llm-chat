@@ -5,7 +5,7 @@ import App from "./App.vue";
 import "./index.css";
 import router from "./router";
 import store from "./store";
-import VueSocialSharing from 'vue-social-sharing'
+import VueSocialSharing from "vue-social-sharing";
 
 import i18nConf from "./i18n/index";
 import { i18nUtils } from "./i18n/utils";

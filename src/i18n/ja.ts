@@ -49,7 +49,7 @@ const lang = {
     loading: "考え中...",
   },
   placeholder: {
-    chatMessage: "ここにメッセージを書いてください"
+    chatMessage: "ここにメッセージを書いてください",
   },
   languages,
 };

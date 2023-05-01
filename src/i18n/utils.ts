@@ -25,7 +25,6 @@ export const useI18nParam = () => {
   i18n.locale.value = lang.value;
 };
 
-
 export const useLang = () => {
   const i18n = useI18n();
   const route = useRoute();

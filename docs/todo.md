@@ -11,9 +11,17 @@
 - limit
   - １回の書き込みの文字数制限
     (firebase側で)
+    jsは共通にする
+    フロントとfirestoreの両方でcheck
   - 書き込み回数上限
     - 無料
     - 課金
+- ui
+  - parser markdown
+  - scroll down
+  - user viewをわける
+  - historyの日付と書き込み数
+  - owner以外はsnapshotしない
 - シェア
   - SNS
   - OGP

@@ -1,5 +1,5 @@
 <template>
-<div id="nav fl">
+  <div id="nav fl">
     <template v-if="isSignedIn">
       <router-link :to="localizedUrl('/')">Home</router-link> |
       <router-link :to="localizedUrl('/about')">About</router-link>

@@ -49,7 +49,7 @@ const lang = {
     loading: "Loading...",
   },
   placeholder: {
-    chatMessage: "Input your message"
+    chatMessage: "Input your message",
   },
   languages,
 };

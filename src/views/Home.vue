@@ -6,14 +6,14 @@
         <button
           class="m-2 rounded-lg bg-sky-400 p-2 text-white"
           @click="choose(v)"
-          >
-          {{ $t("title." +v) }}
+        >
+          {{ $t("title." + v) }}
         </button>
       </span>
     </div>
     <div>
       <h2 class="text-lg font-bold">{{ $t("home.history") }}</h2>
-      <div v-for="(h, k) in histories" :key="k" class="text-left mx-2">
+      <div v-for="(h, k) in histories" :key="k" class="mx-2 text-left">
         <router-link :to="`chats/${h.id}`">
           {{ $t("title." + h.type) }}
           {{ h.createdAt?.toDate()?.toISOString() }}
@@ -48,7 +48,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const user = useUser();
-    const { localizedUrl } =  useLang();
+    const { localizedUrl } = useLang();
 
     const choose = async (v: string) => {
       const uid = user.value.uid;
@@ -92,7 +92,7 @@ export default defineComponent({
         );
         detachers.push(detacher);
       }
-    }
+    };
     watch(user, load);
     load();
     onUnmounted(() => {
