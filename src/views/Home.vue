@@ -1,33 +1,102 @@
 <template>
   <div class="home">
-    <div class="flex-col rounded-lg border-2 mx-16 h-96">
-      <div class="flex m-4">
-        a
+    <h2 class="text-lg font-bold">Choose one</h2>
+    <span v-for="(v, k) in Object.keys(prompts)" :key="k">
+      <button
+        class="m-2 rounded-lg bg-sky-400 p-2 text-white"
+        @click="choose(v)"
+      >
+        {{ v }}
+      </button>
+    </span>
+    <div>
+      Your History
+
+      <div v-for="(h, k) in histories" :key="k">
+        <router-link :to="`chats/${h.id}`">
+          {{ h.id }}
+          {{ h.type }}
+          {{ h.create }}
+        </router-link>
       </div>
-      <div class="flex m-4">
-        a
-      </div>
-      <div class="flex m-4">
-        a
-      </div>
-      <div class="flex m-4">
-      </div>
-    </div>
-    <div class="mx-16">
-      <form>
-        <textarea class="h-24 border-2 w-full p-4 mt-4"> aa
-        </textarea>
-      </form>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, watch, ref } from "vue";
+import { prompts } from "@/utils/prompts";
+import { useUser } from "@/utils/utils";
+import {
+  serverTimestamp,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  where,
+  orderBy,
+  Unsubscribe,
+  DocumentData,
+} from "firebase/firestore";
+import { db } from "@/utils/firebase";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "HomePage",
-  components: {
+  components: {},
+  setup() {
+    const router = useRouter();
+    const user = useUser();
+
+    const choose = async (v: string) => {
+      const uid = user.value.uid;
+      if (uid && v) {
+        console.log(v);
+        const data = {
+          type: v,
+          uid,
+          createdAt: serverTimestamp(),
+        };
+
+        const ret = await addDoc(collection(db, "chats"), data);
+        const id = ret.id;
+        router.push(`/chats/${id}`);
+      }
+    };
+
+    // history
+    const histories = ref<DocumentData[]>([]);
+    let detachers: Unsubscribe[] = [];
+    watch(user, () => {
+      detachers.map((d) => {
+        d();
+      });
+      detachers = [];
+      const uid = user.value.uid;
+      const detacher = onSnapshot(
+        query(
+          collection(db, "chats"),
+          where("uid", "==", uid),
+          orderBy("createdAt", "desc")
+        ),
+        async (snapshot) => {
+          console.log(snapshot.docs);
+          histories.value = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            data.id = doc.id;
+            return data;
+          });
+        }
+      );
+      detachers.push(detacher);
+    });
+
+    return {
+      choose,
+      prompts,
+
+      histories,
+    };
   },
 });
 </script>

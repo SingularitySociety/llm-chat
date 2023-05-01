@@ -2,6 +2,16 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /chats/{chatId} {
+      allow read
+      allow create: if request.resource.data.uid == request.auth.uid && request.resource.data.keys().hasAll(['uid', 'type', 'createdAt']);
+      allow delete, update: if false;
+    }
+    match /chats/{chatId}/tmp/{messageId} {
+      allow read, create: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid && request.resource.data.keys().hasAll(['uid', 'message', 'createdAt']);
+      allow update, delete: if false;
+    }
+
     match /message/{messageId} {
       allow read, create;
       allow delete, update: if false;

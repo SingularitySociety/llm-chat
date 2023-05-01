@@ -10,7 +10,7 @@ import { defineComponent, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 
 import { auth } from "@/utils/firebase";
-import { User } from "firebase/auth";
+import { User, signInAnonymously } from "firebase/auth";
 
 import { useI18nParam } from "@/i18n/utils";
 
@@ -38,6 +38,7 @@ export default defineComponent({
           store.commit("setUser", fbuser);
         } else {
           store.commit("setUser", null);
+          signInAnonymously(auth);
         }
       });
     });
