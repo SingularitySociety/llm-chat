@@ -6,6 +6,7 @@
   "functions": {
     "predeploy": [
       "cp src/utils/prompts.ts functions/src/utils/prompts.ts",
+      "cp src/utils/common.ts functions/src/utils/common.ts",
       "npm --prefix \"$RESOURCE_DIR\" run lint",
       "npm --prefix \"$RESOURCE_DIR\" run build"
     ]
