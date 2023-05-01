@@ -26,6 +26,7 @@
         </form>
       </div>
     </div>
+    <Share />
   </div>
 </template>
 
@@ -48,9 +49,13 @@ import {
 import { db } from "@/utils/firebase";
 import { useUser } from "@/utils/utils";
 
+import Share from "./Share.vue";
+
 export default defineComponent({
   name: "HomePage",
-
+  components: {
+    Share
+  },
   setup() {
     const route = useRoute();
     const user = useUser();

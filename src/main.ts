@@ -5,6 +5,7 @@ import App from "./App.vue";
 import "./index.css";
 import router from "./router";
 import store from "./store";
+import VueSocialSharing from 'vue-social-sharing'
 
 import i18nConf from "./i18n/index";
 import { i18nUtils } from "./i18n/utils";
@@ -19,5 +20,6 @@ app.use(router);
 app.use(i18n);
 app.use(i18nUtils);
 app.use(head);
+app.use(VueSocialSharing);
 
 app.mount("#app");
