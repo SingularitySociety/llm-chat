@@ -19,7 +19,7 @@ yarn run serve
 ## config functions secret
 
 ```
-firebase functions:secrets:set  GPT_API_KEY
+firebase functions:secrets:set  GPT_API_KEY --project=default
 ```
 
 

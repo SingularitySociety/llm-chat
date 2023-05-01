@@ -40,9 +40,14 @@
     - 文字数の上限などもこちらで変更可能
     - 問題あるもの(著作権。秩序に反する)は削除する
 - API
-  - SSカード+openai
-  - Azure
+  - openai
 - ドメイン
+  - imprompt.netU(done)
+  - setup domain
+    - dns
+    - firebase
+- secure
+  - app check
 - devとprod環境を作る
 - 無料の状態でシェアした人、先着１００人に一ヶ月分にクーポン発行
 - 

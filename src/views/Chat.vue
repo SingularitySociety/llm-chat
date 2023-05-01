@@ -16,6 +16,7 @@
       >
         {{ $t(v.role === "user" ? "chatUser" : "title." + chat.type) }}:
         {{ v.content }}
+        {{ v.hasError ? "error" : ""}}
       </div>
 
       <div
@@ -23,7 +24,7 @@
         class="m-4 flex text-left"
         :key="k"
       >
-        {{ $t("chat.user") }}: {{ v.message }} ( {{ $t("chat.loading") }})
+        {{ $t("chatUser") }}: {{ v.message }} ( {{ $t("title.loading") }})
       </div>
     </div>
     <div v-if="user && chat.uid === user.uid">

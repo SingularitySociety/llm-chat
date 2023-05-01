@@ -1,7 +1,7 @@
 {
-  "name": "firebase-vue3-startup-kit",
-  "version": "1.0.4",
-  "license": "MIT",
+  "name": "imprompt.net",
+  "version": "1.0.0",
+  "license": "developerTeam",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
