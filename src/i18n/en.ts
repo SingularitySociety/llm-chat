@@ -5,6 +5,14 @@ const lang = {
     hello: "hello world",
   },
   chatUser: "Question",
+  home: {
+    chooseOne: "Choose one to talk to",
+    history: "Your History",
+  },
+  chat: {
+    submit: "Submit",
+    empty: "No chat yet.",
+  },
   title: {
     accountant: "Accountant",
     baby: "Toddlers with high verbal ability",

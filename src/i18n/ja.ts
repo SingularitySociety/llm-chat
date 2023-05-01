@@ -5,6 +5,14 @@ const lang = {
     hello: "こんにちは、世界",
   },
   chatUser: "質問",
+  home: {
+    chooseOne: "話す相手を選ぶ",
+    history: "会話履歴",
+  },
+  chat: {
+    submit: "送信",
+    empty: "まだ会話が有りません",
+  },
   title: {
     accountant: "会計",
     baby: "赤ちゃん",
@@ -38,10 +46,10 @@ const lang = {
     svg: "SVGデザイナー",
     travel: "トラベルガイド",
     yogi: "ヨーギー",
-    loading: "読込中",
+    loading: "考え中...",
   },
   placeholder: {
-    chatMessage: "Input your message"
+    chatMessage: "ここにメッセージを書いてください"
   },
   languages,
 };

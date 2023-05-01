@@ -26,15 +26,22 @@
 import { defineComponent, ref, watch, onUnmounted } from "vue";
 
 export default defineComponent({
-  setup () {
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+  },
+  
+  setup (props) {
     return {
       sharing: {
         url: location.href,
-        title: 'chat.',
+        title: props.title,
         description: 'chat.',
-        quote: 'chat',
-        hashtags: 'chat',
-        twitterUser: 'snakajima'
+        // quote: 'chat',
+        // hashtags: 'chat',
+        // twitterUser: 'snakajima'
       },
       networks: [
         { network: 'baidu', name: 'Baidu', icon: 'fas fah fa-lg fa-paw', color: '#2529d8' },

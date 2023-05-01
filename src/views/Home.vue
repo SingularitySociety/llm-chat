@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2 class="text-lg font-bold">Choose one</h2>
+    <h2 class="text-lg font-bold">{{ $t("home.chooseOne") }}</h2>
     <div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
         <button
@@ -12,7 +12,7 @@
       </span>
     </div>
     <div>
-      <h2 class="text-lg font-bold">Your History</h2>
+      <h2 class="text-lg font-bold">{{ $t("home.history") }}</h2>
       <div v-for="(h, k) in histories" :key="k" class="text-left mx-2">
         <router-link :to="`chats/${h.id}`">
           {{ $t("title." + h.type) }}

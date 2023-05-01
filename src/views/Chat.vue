@@ -2,7 +2,10 @@
   <div class="home">
     {{ $t("title." + (chat.type||'loading')) }}
     <div class="mx-16 h-96 flex-col rounded-lg border-2 overflow-y-scroll">
-      <div v-for="(v, k) in chat.histories || []" class="m-4 flex text-left" :key="k">
+      <div v-if="(chat.histories || []).length === 0" class="m-4 flex text-left">
+        {{ $t("chat.empty") }}
+      </div>
+      <div v-else v-for="(v, k) in chat.histories || []" class="m-4 flex text-left" :key="k">
         
         {{ $t( (v.role === 'user' ? 'chatUser' : "title." + chat.type)) }}:  {{v.content}}
       </div>
@@ -21,12 +24,12 @@
             >
           </textarea>
           <button class="m-2 rounded-lg border-2 p-2" @click.prevent="writeMessage">
-            Submit
+            {{ $t("chat.submit") }}
           </button>
         </form>
       </div>
     </div>
-    <Share />
+    <Share :title="chat.type || ''"/>
   </div>
 </template>
 
