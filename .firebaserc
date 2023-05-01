@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "llm-chat-6aa15"
-  }
+    "default": "llm-chat-6aa15",
+    "release": "lm-chat-release"
+ }
 }
