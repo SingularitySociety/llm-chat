@@ -1,22 +1,22 @@
 <template>
   <div class="home">
     <h2 class="text-lg font-bold">Choose one</h2>
-    <span v-for="(v, k) in Object.keys(prompts)" :key="k">
-      <button
-        class="m-2 rounded-lg bg-sky-400 p-2 text-white"
-        @click="choose(v)"
-      >
-        {{ $t("button." +v) }}
-      </button>
-    </span>
     <div>
-      Your History
-
-      <div v-for="(h, k) in histories" :key="k">
+      <span v-for="(v, k) in Object.keys(prompts)" :key="k">
+        <button
+          class="m-2 rounded-lg bg-sky-400 p-2 text-white"
+          @click="choose(v)"
+          >
+          {{ $t("title." +v) }}
+        </button>
+      </span>
+    </div>
+    <div>
+      <h2 class="text-lg font-bold">Your History</h2>
+      <div v-for="(h, k) in histories" :key="k" class="text-left mx-2">
         <router-link :to="`chats/${h.id}`">
-          {{ h.id }}
-          {{ h.type }}
-          {{ h.create }}
+          {{ $t("title." + h.type) }}
+          {{ h.createdAt?.toDate()?.toISOString() }}
         </router-link>
       </div>
     </div>
@@ -40,6 +40,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { useRouter } from "vue-router";
+import { useLang } from "@/i18n/utils";
 
 export default defineComponent({
   name: "HomePage",
@@ -47,11 +48,11 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const user = useUser();
+    const { localizedUrl } =  useLang();
 
     const choose = async (v: string) => {
       const uid = user.value.uid;
       if (uid && v) {
-        console.log(v);
         const data = {
           type: v,
           uid,
@@ -60,7 +61,7 @@ export default defineComponent({
 
         const ret = await addDoc(collection(db, "chats"), data);
         const id = ret.id;
-        router.push(`/chats/${id}`);
+        router.push(localizedUrl(`/chats/${id}`));
       }
     };
 

@@ -1,13 +1,14 @@
 <template>
   <div class="home">
-    type: {{ chat.type }}
+    {{ $t("title." + (chat.type||'loading')) }}
     <div class="mx-16 h-96 flex-col rounded-lg border-2 overflow-y-scroll">
       <div v-for="(v, k) in chat.histories || []" class="m-4 flex text-left" :key="k">
-        {{v.role}}:  {{v.content}}
+        
+        {{ $t( (v.role === 'user' ? 'chatUser' : "title." + chat.type)) }}:  {{v.content}}
       </div>
 
       <div v-for="(v, k) in histories || []" class="m-4 flex text-left" :key="k">
-        user: {{ v.message }} (loading......)
+        chat.user: {{ v.message }} (loading......)
       </div>
     </div>
     <div v-if="user && chat.uid === user.uid">
@@ -16,7 +17,8 @@
           <textarea
             class="mt-4 h-24 w-full rounded-lg border-2 p-4"
             v-model="message"
-          >
+            :placeholder="$t('placeholder.chatMessage')"
+            >
           </textarea>
           <button class="m-2 rounded-lg border-2 p-2" @click.prevent="writeMessage">
             Submit
