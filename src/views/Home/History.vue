@@ -4,7 +4,8 @@
     <div v-for="(h, k) in histories" :key="k" class="mx-2 text-left">
       <router-link :to="`chats/${h.id}`">
         {{ $t("title." + h.type) }}
-        {{ h.createdAt?.toDate()?.toISOString() }}
+        {{ cdate(h.createdAt?.toDate()).tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
+        ({{ Math.round((h.histories || []).length / 2) }}回)
       </router-link>
     </div>
   </div>
@@ -23,6 +24,7 @@ import {
   DocumentData,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
+import { cdate } from "cdate";
 
 export default defineComponent({
   setup() {
@@ -45,7 +47,6 @@ export default defineComponent({
             orderBy("createdAt", "desc")
           ),
           async (snapshot) => {
-            console.log(snapshot.docs);
             histories.value = snapshot.docs.map((doc) => {
               const data = doc.data();
               data.id = doc.id;
@@ -65,6 +66,7 @@ export default defineComponent({
     });
     return {
       histories,
+      cdate,
     };
   },
 })

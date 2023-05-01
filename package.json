@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vueuse/head": "^1.0.16",
+    "cdate": "^0.0.5",
     "core-js": "^3.25.2",
     "firebase": "^9.6.11",
     "prettier-plugin-tailwindcss": "^0.1.13",

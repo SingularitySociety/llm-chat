@@ -44,6 +44,7 @@
         </form>
       </div>
     </div>
+
     <Share :title="chat.type || ''" />
   </div>
 </template>

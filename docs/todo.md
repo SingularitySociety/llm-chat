@@ -22,6 +22,9 @@
 - 認証
   - twitter
   - SMS
+- feature
+  - chatにいいね
+    - らんきんぐ
 
 - マネタイズ
   - 広告

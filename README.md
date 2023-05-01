@@ -23,6 +23,11 @@ firebase functions:secrets:set  GPT_API_KEY
 ```
 
 
+## service
+
+ja.imprompt.net 
+
+
 ## import data
 
 From https://github.com/snakajima/SlashGPT.git repository, it take json prompt files and generate ts files.
