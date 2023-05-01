@@ -8,7 +8,8 @@ service cloud.firestore {
       allow delete, update: if false;
     }
     match /chats/{chatId}/tmp/{messageId} {
-      allow read, create: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid && request.resource.data.keys().hasAll(['uid', 'message', 'createdAt']);
+      allow read: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid;
+      allow create: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid && request.resource.data.keys().hasAll(['uid', 'message', 'createdAt']);
       allow update, delete: if false;
     }
 

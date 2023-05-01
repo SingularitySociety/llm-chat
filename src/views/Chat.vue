@@ -1,11 +1,14 @@
 <template>
   <div class="home">
     type: {{ chat.type }}
-    <div class="mx-16 h-96 flex-col rounded-lg border-2">
-      <div class="m-4 flex">a</div>
-      <div class="m-4 flex">a</div>
-      <div class="m-4 flex">a</div>
-      <div class="m-4 flex"></div>
+    <div class="mx-16 h-96 flex-col rounded-lg border-2 overflow-y-scroll">
+      <div v-for="(v, k) in chat.histories || []" class="m-4 flex text-left" :key="k">
+        {{v.role}}:  {{v.content}}
+      </div>
+
+      <div v-for="(v, k) in histories || []" class="m-4 flex text-left" :key="k">
+        user: {{ v.message }} (loading......)
+      </div>
     </div>
     <div v-if="user && chat.uid === user.uid">
       <div class="mx-16">
@@ -15,7 +18,7 @@
             v-model="message"
           >
           </textarea>
-          <button class="m-2 rounded-lg border-2 p-2" @click="writeMessage">
+          <button class="m-2 rounded-lg border-2 p-2" @click.prevent="writeMessage">
             Submit
           </button>
         </form>
@@ -25,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import {
   getDoc,
@@ -53,9 +56,12 @@ export default defineComponent({
 
     const chatId = route.params.chatId as string;
     const chat = ref<DocumentData>({});
-    getDoc(doc(db, `chats/${chatId}`)).then((c) => {
-      chat.value = c.data() || {};
-    });
+    onSnapshot(
+      doc(db, `chats/${chatId}`),
+      (c) => {
+        chat.value = c.data() || {};
+      }
+    );
 
     const writeMessage = async () => {
       const uid = user.value.uid;
@@ -67,6 +73,7 @@ export default defineComponent({
         };
         console.log(data);
         await addDoc(collection(db, `chats/${chatId}/tmp`), data);
+        message.value = "";
       }
     };
 
@@ -81,11 +88,10 @@ export default defineComponent({
       detachers = [];
       const uid = user.value.uid;
       // console.log(user.value, chat.value);
-      if (uid && chat.value.id && chat.value.uid === uid) {
+      if (uid && chat.value.uid && chat.value.uid === uid) {
         const detacher = onSnapshot(
           query(
             collection(db, `chats/${chatId}/tmp`),
-            orderBy("createdAt", "desc")
           ),
           async (snapshot) => {
             console.log(snapshot.docs);
@@ -98,6 +104,11 @@ export default defineComponent({
         );
         detachers.push(detacher);
       }
+    });
+    onUnmounted(() => {
+      detachers.map((d) => {
+        d();
+      });
     });
 
     return {

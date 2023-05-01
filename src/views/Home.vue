@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref } from "vue";
+import { defineComponent, watch, ref, onUnmounted } from "vue";
 import { prompts } from "@/utils/prompts";
 import { useUser } from "@/utils/utils";
 import {
@@ -89,6 +89,11 @@ export default defineComponent({
         }
       );
       detachers.push(detacher);
+    });
+    onUnmounted(() => {
+      detachers.map((d) => {
+        d();
+      });
     });
 
     return {
