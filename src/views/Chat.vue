@@ -67,7 +67,7 @@ import {
 import { db } from "@/utils/firebase";
 import { useUser } from "@/utils/utils";
 
-import Share from "./Share.vue";
+import Share from "@/components/Share.vue";
 
 export default defineComponent({
   name: "HomePage",
