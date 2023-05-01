@@ -1,12 +1,6 @@
 
-- マネタイズ
-  - 広告
-    - adsence
-    - amazon affilite
-  - 課金
-    - stripe subscription (2000円/月)
 - i18n
-  - タイトル/ボタン/ui
+  - タイトル/ボタン/ui (done)
   - JSONで言語指定
 - limit
   - １回の書き込みの文字数制限
@@ -23,11 +17,18 @@
   - historyの日付と書き込み数
   - owner以外はsnapshotしない
 - シェア
-  - SNS
+  - SNS 
   - OGP
 - 認証
   - twitter
   - SMS
+
+- マネタイズ
+  - 広告
+    - adsence
+    - amazon affilite
+  - 課金
+    - stripe subscription (2000円/月)
 - doc
   - プラポリ(from omochikaeri)
   - 利用規約 (GPT)

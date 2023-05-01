@@ -27,7 +27,6 @@ export const useI18nParam = () => {
 
 export const useLang = () => {
   const i18n = useI18n();
-  const route = useRoute();
 
   const lang = computed(() => {
     return i18n.locale.value;

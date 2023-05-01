@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onUnmounted } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {

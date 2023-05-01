@@ -52,7 +52,6 @@
 import { defineComponent, ref, watch, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import {
-  getDoc,
   doc,
   DocumentData,
   serverTimestamp,
@@ -60,8 +59,6 @@ import {
   addDoc,
   onSnapshot,
   query,
-  where,
-  orderBy,
   Unsubscribe,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
