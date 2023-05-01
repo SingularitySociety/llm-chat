@@ -67,29 +67,33 @@ export default defineComponent({
     // history
     const histories = ref<DocumentData[]>([]);
     let detachers: Unsubscribe[] = [];
-    watch(user, () => {
-      detachers.map((d) => {
-        d();
-      });
-      detachers = [];
-      const uid = user.value.uid;
-      const detacher = onSnapshot(
-        query(
-          collection(db, "chats"),
-          where("uid", "==", uid),
-          orderBy("createdAt", "desc")
-        ),
-        async (snapshot) => {
-          console.log(snapshot.docs);
-          histories.value = snapshot.docs.map((doc) => {
-            const data = doc.data();
-            data.id = doc.id;
-            return data;
-          });
-        }
-      );
-      detachers.push(detacher);
-    });
+    const load = () => {
+      if (user.value) {
+        detachers.map((d) => {
+          d();
+        });
+        detachers = [];
+        const uid = user.value.uid;
+        const detacher = onSnapshot(
+          query(
+            collection(db, "chats"),
+            where("uid", "==", uid),
+            orderBy("createdAt", "desc")
+          ),
+          async (snapshot) => {
+            console.log(snapshot.docs);
+            histories.value = snapshot.docs.map((doc) => {
+              const data = doc.data();
+              data.id = doc.id;
+              return data;
+            });
+          }
+        );
+        detachers.push(detacher);
+      }
+    }
+    watch(user, load);
+    load();
     onUnmounted(() => {
       detachers.map((d) => {
         d();
