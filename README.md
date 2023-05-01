@@ -1,8 +1,14 @@
 # llm chat
 
-## Purpose
+## Setup
 
-This is a Start-Up kit for a Firebase web project, which uses Vue3 and firebase 9.
+```
+yarn run install
+```
+
+```
+
+```
 
 ## import data
 
