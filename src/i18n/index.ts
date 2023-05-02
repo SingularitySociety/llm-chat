@@ -1,6 +1,8 @@
 import en from "./en";
 import ja from "./ja";
 
+export const defaultLanguage = "ja";
+
 const messages = {
   en,
   ja,
@@ -8,7 +10,7 @@ const messages = {
 
 const config = {
   legacy: false,
-  locale: "ja",
+  locale: defaultLanguage,
   messages,
 };
 

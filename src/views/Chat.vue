@@ -67,6 +67,9 @@ export default defineComponent({
 
     const errorFunc = () => {
       const { ret, addError } = errorFuncBase();
+      if (stringLength(message.value) === 0) {
+        addError("message", "empty");
+      }
       if (stringLength(message.value) > 200) {
         addError("message", "tooLong");
       }

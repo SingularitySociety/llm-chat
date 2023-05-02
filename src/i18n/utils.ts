@@ -2,6 +2,8 @@ import { App, computed, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
+import {defaultLanguage } from "./";
+
 export const i18nUtils = (app: App) => {
   app.config.globalProperties.localizedUrl = (path: string) => {
     const lang = app.config.globalProperties.$route.params.lang;
@@ -17,7 +19,7 @@ export const useI18nParam = () => {
   const i18n = useI18n();
 
   const lang = computed(() => {
-    return (route.params.lang as string) || "en";
+    return (route.params.lang as string) || defaultLanguage;
   });
   watch(lang, () => {
     i18n.locale.value = lang.value;
