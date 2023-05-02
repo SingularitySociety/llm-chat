@@ -1,6 +1,11 @@
+import * as admin from "firebase-admin";
 // import * as functions from "firebase-functions";
 
 import exportIfNeeded from "./common/exportifneeded";
+
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -14,3 +19,4 @@ import exportIfNeeded from "./common/exportifneeded";
 
 exportIfNeeded("createMessageTrigger", "firestore/createMessage", exports);
 exportIfNeeded("createChatTrigger", "firestore/createChat", exports);
+exportIfNeeded("updateChatTrigger", "firestore/updateChat", exports);

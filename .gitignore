@@ -25,4 +25,5 @@ pnpm-debug.log*
 src/config/project.ts
 functions/src/utils/prompts.ts
 functions/src/utils/common.ts
+functions/src/i18n/title.ts
 *~

@@ -10,6 +10,7 @@ yarn run install
 cp configs/dev.ts src/config/project.ts
 cp src/utils/prompts.ts functions/src/utils/prompts.ts
 cp src/utils/common.ts functions/src/utils/common.ts
+cp src/i18n/ja/title.ts functions/src/i18n/title.ts
 ```
 
 ```

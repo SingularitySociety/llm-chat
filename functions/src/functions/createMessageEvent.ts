@@ -118,13 +118,14 @@ export const createMessageEvent = async (snap: any, context: any) => {
     
     await snap.ref.delete();
     
-    // 
+    // update counter
     const db = snap.ref.firestore;
     const path = getStatisticsPath(uid);
     const statictics = (await db.doc(path).get()).data() || {}
     const counter = (statictics.messageCounter || 0) + 1;
     const newData = {...statictics, messageCounter: counter};
     await db.doc(path).set(newData);
+
   } catch (e) {
     console.log(e);
     await snap.ref.delete();
