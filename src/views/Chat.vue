@@ -38,6 +38,9 @@
     </div>
 
     <Share :title="chat.type || ''" />
+    <div v-if="chat && chat.imageUrl">
+      <img :src="chat.imageUrl" />
+    </div>
   </div>
 </template>
 
