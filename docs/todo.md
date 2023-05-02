@@ -1,7 +1,7 @@
 
 - i18n
   - タイトル/ボタン/ui (done)
-  - JSONで言語指定
+  - JSONで言語指定 ??
 - limit (utils/common)
   - 定義
     - message
@@ -16,10 +16,10 @@
   - １度に送れるメッセージ送信文字数(done)
      - gpt3.5-turbo の限度の4096トークン（英語だと約16,000字）
      - 3000文字で制限(for japanese)          
-  - 作成できるChat数(ボタンを押せなくする)
+  - 作成できるChat数(ボタンを押せなくする) (counter done)
      - 無料 １日あたり１つ
      - 有料 制限なし(100)
-  - １日あたりのmessage数
+  - １日あたりのmessage数 (counter done)
      - 無料 10 messages
      - 有料 200 messages
 - ui
@@ -29,7 +29,7 @@
   - historyの日付と書き込み数(done)
   - owner以外はsnapshotしない
 - シェア
-  - SNS 
+  - SNS  (done)
   - OGP
 - 認証
   - twitter
@@ -52,7 +52,7 @@
     - 文字数の上限などもこちらで変更可能
     - 問題あるもの(著作権。秩序に反する)は削除する
 - API
-  - openai
+  - openai(done)
 - ドメイン
   - imprompt.netU(done)
   - setup domain
