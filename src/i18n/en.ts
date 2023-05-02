@@ -51,6 +51,15 @@ const lang = {
   placeholder: {
     chatMessage: "Input your message",
   },
+  error: {
+    history: {
+      tooLong: "Message limit reached"
+    },
+    message: {
+      empty: "Enter your message, please",
+      tooLong: "Message is long",
+    },
+  },
   languages,
 };
 

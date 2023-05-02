@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="(chat.histories || []).length === 0"
+      v-if="(chat.histories || []).length === 0 && ( histories || []).length === 0"
       class="m-4 flex text-left"
       >
       {{ $t("chat.empty") }}
@@ -24,6 +24,7 @@
       >
       {{ $t("chatUser") }}: {{ v.message }} ( {{ $t("title.loading") }})
     </div>
+    {{ historyCounter }}
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { useUser } from "@/utils/utils";
+import { stringLength } from "@/utils/common";
 
 export default defineComponent({
   name: "HomePage",
@@ -55,6 +57,17 @@ export default defineComponent({
 
     const chatId = route.params.chatId as string;
 
+    const historyCounter = computed(() => {
+      return (props.chat.histories || []).reduce((tmp: number, c: any) => {
+        if (!c.hasError) {
+          // for ja.
+          const len = stringLength(c.content);
+          return tmp + len;
+        }
+        return tmp;
+      }, 0);
+    });
+    
     // history
     const histories = ref<DocumentData[]>([]);
     let detachers: Unsubscribe[] = [];
@@ -73,7 +86,6 @@ export default defineComponent({
         const detacher = onSnapshot(
           query(collection(db, `chats/${chatId}/tmp`)),
           async (snapshot) => {
-            console.log(snapshot.docs);
             histories.value = snapshot.docs.map((doc) => {
               const data = doc.data();
               data.id = doc.id;
@@ -94,6 +106,7 @@ export default defineComponent({
       user,
       histories,
 
+      historyCounter,
     };
   },
 });

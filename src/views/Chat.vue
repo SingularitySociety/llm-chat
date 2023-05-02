@@ -2,15 +2,27 @@
   <div class="home">
     {{ $t("title." + (chat.type || "loading")) }}
     <div class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2">
-      <Messages :chat="chat" />
+      <Messages :chat="chat" ref="messageRef" />
     </div>
     <div v-if="user && chat.uid === user.uid">
+      <template v-if="errors['history']">
+        <div v-for="(e, k) in errors['history']" :key="k" >
+          {{ $t("error.history." + e) }}
+        </div>
+      </template>
+      <template v-else-if="errors['message']">
+        <div v-for="(e, k) in errors['message']" :key="k" >
+          {{ $t("error.message." + e) }}
+        </div>
+      </template>
+
       <div class="mx-16">
         <form @submit.prevent="writeMessage">
           <textarea
             class="mt-4 h-24 w-full rounded-lg border-2 p-4"
             v-model="message"
             :placeholder="$t('placeholder.chatMessage')"
+            :disabled="errors['history'] && errors['history'].length >0"
           >
           </textarea>
           <button
@@ -24,6 +36,7 @@
         </form>
       </div>
     </div>
+
     <Share :title="chat.type || ''" />
   </div>
 </template>
@@ -58,7 +71,8 @@ export default defineComponent({
     const route = useRoute();
     const user = useUser();
     const message = ref("");
-
+    const messageRef = ref();
+    
     const chatId = route.params.chatId as string;
     const chat = ref<DocumentData>({});
     onSnapshot(doc(db, `chats/${chatId}`), (c) => {
@@ -72,6 +86,9 @@ export default defineComponent({
       }
       if (stringLength(message.value) > 200) {
         addError("message", "tooLong");
+      }
+      if (messageRef.value?.historyCounter > 3000) {
+        addError("history", "tooLong");
       }
       return ret;
     };
@@ -97,6 +114,8 @@ export default defineComponent({
       message,
       writeMessage,
 
+      messageRef,
+      
       errors,
       hasError,
     };

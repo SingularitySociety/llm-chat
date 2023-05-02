@@ -51,6 +51,15 @@ const lang = {
   placeholder: {
     chatMessage: "ここにメッセージを書いてください",
   },
+  error: {
+    history: {
+      tooLong: "書き込みメッセージの上限に達しています"
+    },
+    message: {
+      empty: "メッセージを入力してください",
+      tooLong: "メッセージが長いです",
+    },
+  },
   languages,
 };
 
