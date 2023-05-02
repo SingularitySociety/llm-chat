@@ -2,30 +2,7 @@
   <div class="home">
     {{ $t("title." + (chat.type || "loading")) }}
     <div class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2">
-      <div
-        v-if="(chat.histories || []).length === 0"
-        class="m-4 flex text-left"
-      >
-        {{ $t("chat.empty") }}
-      </div>
-      <div
-        v-else
-        v-for="(v, k) in chat.histories || []"
-        class="m-4 flex text-left"
-        :key="k"
-      >
-        {{ $t(v.role === "user" ? "chatUser" : "title." + chat.type) }}:
-        {{ v.content }}
-        {{ v.hasError ? "error" : ""}}
-      </div>
-
-      <div
-        v-for="(v, k) in histories || []"
-        class="m-4 flex text-left"
-        :key="k"
-      >
-        {{ $t("chatUser") }}: {{ v.message }} ( {{ $t("title.loading") }})
-      </div>
+      <Messages :chat="chat" />
     </div>
     <div v-if="user && chat.uid === user.uid">
       <div class="mx-16">
@@ -37,21 +14,22 @@
           >
           </textarea>
           <button
-            class="m-2 rounded-lg border-2 p-2"
+            class="m-2 rounded-lg border-2 p-2 text-white font-bold"
+            :class="hasError ? 'bg-blue-200' : 'bg-blue-600' "
             @click.prevent="writeMessage"
+            :disabled="hasError"
           >
             {{ $t("chat.submit") }}
           </button>
         </form>
       </div>
     </div>
-
     <Share :title="chat.type || ''" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onUnmounted } from "vue";
+import { defineComponent, ref, watch, onUnmounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import {
   doc,
@@ -64,13 +42,16 @@ import {
   Unsubscribe,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
-import { useUser } from "@/utils/utils";
+import { useUser, useError, errorFuncBase } from "@/utils/utils";
+import { stringLength } from "@/utils/common";
 
+import Messages from "@/views/Chat/Messages.vue";
 import Share from "@/components/Share.vue";
 
 export default defineComponent({
   name: "HomePage",
   components: {
+    Messages,
     Share,
   },
   setup() {
@@ -84,6 +65,16 @@ export default defineComponent({
       chat.value = c.data() || {};
     });
 
+    const errorFunc = () => {
+      const { ret, addError } = errorFuncBase();
+      if (stringLength(message.value) > 200) {
+        addError("message", "tooLong");
+      }
+      return ret;
+    };
+
+    const { hasError, errors } = useError(errorFunc);
+    
     const writeMessage = async () => {
       const uid = user.value.uid;
       if (uid && message.value) {
@@ -92,50 +83,19 @@ export default defineComponent({
           message: message.value,
           createdAt: serverTimestamp(),
         };
-        console.log(data);
         await addDoc(collection(db, `chats/${chatId}/tmp`), data);
         message.value = "";
       }
     };
-
-    // history
-    const histories = ref<DocumentData[]>([]);
-    let detachers: Unsubscribe[] = [];
-
-    watch([user, chat], () => {
-      detachers.map((d) => {
-        d();
-      });
-      detachers = [];
-      const uid = user.value.uid;
-      // console.log(user.value, chat.value);
-      if (uid && chat.value.uid && chat.value.uid === uid) {
-        const detacher = onSnapshot(
-          query(collection(db, `chats/${chatId}/tmp`)),
-          async (snapshot) => {
-            console.log(snapshot.docs);
-            histories.value = snapshot.docs.map((doc) => {
-              const data = doc.data();
-              data.id = doc.id;
-              return data;
-            });
-          }
-        );
-        detachers.push(detacher);
-      }
-    });
-    onUnmounted(() => {
-      detachers.map((d) => {
-        d();
-      });
-    });
 
     return {
       chat,
       user,
       message,
       writeMessage,
-      histories,
+
+      errors,
+      hasError,
     };
   },
 });

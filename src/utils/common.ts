@@ -2,6 +2,9 @@
 // This is a file that is commonly used by vue and functions.
 //  Do not directly edit files under functions
 
+export const stringLength = (text: string) => {
+  return Array.from(text).length;
+};
 
 export const limitations = {
   free: {
