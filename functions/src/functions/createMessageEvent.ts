@@ -1,4 +1,8 @@
-import {prompts } from "../utils/prompts";
+import {
+  getStatisticsPath
+} from "./common";
+
+import { prompts } from "../utils/prompts";
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
 import { historyTextCount, historyCount } from "../utils/common";
@@ -30,7 +34,7 @@ export const ask = async (messages: ChatCompletionRequestMessage[], model = "gpt
 export const createMessageEvent = async (snap: any, context: any) => {
   const data = snap.data();
   // const { chatId } = context.params;
-  const { message } = data;
+  const { message, uid } = data;
   console.log(message);
 
   const updateHistoryErrorAndDelete = async () => {
@@ -47,70 +51,83 @@ export const createMessageEvent = async (snap: any, context: any) => {
     await snap.ref.delete();
   }
 
-  // TODO: magic number 200 should get from limitations from common.
+  try {
+    // TODO: magic number 200 should get from limitations from common.
 
-  // if (stringLength(message) === 0 || stringLength(message) > 200) {
-  if ((message || "").length > 1000) {
-    await updateHistoryErrorAndDelete();
-    return 
-  }
-  
-  // const chatData = snap.ref.parent.parent.data();
-  const chatData = (await snap.ref.parent.parent.get()).data() || {};
-  const type = chatData.type;
-
-  if (historyTextCount(chatData) > 3000) {
-    await updateHistoryErrorAndDelete();
-    return 
-  }
-  if (historyCount(chatData) > 10) {
-    await updateHistoryErrorAndDelete();
-    return 
-  }
-  
-  const prompt = (prompts as any)[type];
-  const messages: ChatCompletionRequestMessage[]  = [];
-  if (prompt) {
+    // if (stringLength(message) === 0 || stringLength(message) > 200) {
+    if ((message || "").length > 1000) {
+      await updateHistoryErrorAndDelete();
+      return 
+    }
+    
+    // const chatData = snap.ref.parent.parent.data();
+    const chatData = (await snap.ref.parent.parent.get()).data() || {};
+    const type = chatData.type;
+    
+    if (historyTextCount(chatData.histories || []) > 3000) {
+      await updateHistoryErrorAndDelete();
+      return 
+    }
+    if (historyCount(chatData.histories || []) > 10) {
+      await updateHistoryErrorAndDelete();
+      return 
+    }
+    
+    const prompt = (prompts as any)[type];
+    const messages: ChatCompletionRequestMessage[]  = [];
+    if (prompt) {
+      messages.push({
+        role: "system",
+        content: prompt.prompt.join("\n")
+      });
+    }
+    if (chatData && chatData.histories) {
+      chatData.histories.map((h: (ChatCompletionRequestMessage & {hasError: boolean})) => {
+        if (!h.hasError) {
+          messages.push(h);
+        }
+      });
+    }
+    
     messages.push({
-      role: "system",
-      content: prompt.prompt.join("\n")
+      role: "user",
+      content: message,
+    })
+    
+    const answer = await ask(messages);
+    if (!answer) {
+      // update failed
+      await updateHistoryErrorAndDelete();
+      return;
+    }
+    // console.log(answer?.content);
+    
+    //  update history
+    // const path = snap.ref.parent.parent.path;
+    const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
+    const histories = chatDataAgain.histories || [];
+    histories.push({
+      role: "user",
+      content: message,
     });
-  }
-  if (chatData && chatData.histories) {
-    chatData.histories.map((h: (ChatCompletionRequestMessage & {hasError: boolean})) => {
-      if (!h.hasError) {
-        messages.push(h);
-      }
+    histories.push({
+      role: answer?.role || "",
+      content: answer?.content || "",
     });
+    await snap.ref.parent.parent.update({histories});
+    
+    await snap.ref.delete();
+    
+    // 
+    const db = snap.ref.firestore;
+    const path = getStatisticsPath(uid);
+    const statictics = (await db.doc(path).get()).data() || {}
+    const counter = (statictics.messageCounter || 0) + 1;
+    const newData = {...statictics, messageCounter: counter};
+    await db.doc(path).set(newData);
+  } catch (e) {
+    console.log(e);
+    await snap.ref.delete();
+    
   }
-
-  messages.push({
-    role: "user",
-    content: message,
-  })
-
-  const answer = await ask(messages);
-  if (!answer) {
-    // update failed
-    await updateHistoryErrorAndDelete();
-    return;
-  }
-  console.log(answer?.content);
-
-  //  update history
-  // const path = snap.ref.parent.parent.path;
-  const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
-  const histories = chatDataAgain.histories || [];
-  histories.push({
-    role: "user",
-    content: message,
-  });
-  histories.push({
-    role: answer?.role || "",
-    content: answer?.content || "",
-  });
-  await snap.ref.parent.parent.update({histories});
-
-  await snap.ref.delete();
-  
 };

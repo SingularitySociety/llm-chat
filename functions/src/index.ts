@@ -13,3 +13,4 @@ import exportIfNeeded from "./common/exportifneeded";
 // exportIfNeeded("test", "tests/test", exports);
 
 exportIfNeeded("createMessageTrigger", "firestore/createMessage", exports);
+exportIfNeeded("createChatTrigger", "firestore/createChat", exports);
