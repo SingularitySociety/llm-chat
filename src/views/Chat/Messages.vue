@@ -24,7 +24,6 @@
       >
       {{ $t("chatUser") }}: {{ v.message }} ( {{ $t("title.loading") }})
     </div>
-    {{ historyCounter }}
   </div>
 </template>
 
@@ -41,7 +40,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { useUser } from "@/utils/utils";
-import { stringLength } from "@/utils/common";
+import { stringLength, historyTextCount, historyCount } from "@/utils/common";
 
 export default defineComponent({
   name: "HomePage",
@@ -57,15 +56,11 @@ export default defineComponent({
 
     const chatId = route.params.chatId as string;
 
+    const historyTextCounter = computed(() => {
+      return historyTextCount(props.chat.histories || []);
+    });
     const historyCounter = computed(() => {
-      return (props.chat.histories || []).reduce((tmp: number, c: any) => {
-        if (!c.hasError) {
-          // for ja.
-          const len = stringLength(c.content);
-          return tmp + len;
-        }
-        return tmp;
-      }, 0);
+      return historyCount(props.chat.histories || []);
     });
     
     // history
@@ -106,6 +101,7 @@ export default defineComponent({
       user,
       histories,
 
+      historyTextCounter,
       historyCounter,
     };
   },

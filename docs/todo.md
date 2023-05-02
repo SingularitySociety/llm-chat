@@ -6,22 +6,22 @@
   - 定義
     - message
     - chat(session)
-  - 1回の書き込みの文字数(messageMaxLength)
+  - 1回の書き込みの文字数(messageMaxLength)(done)
      - message length
-     - 無料、有料共通(〇〇文字)
-  - 1Chatあたりの会話数(maxNumberOfMessagesPerChat)
+     - 無料、有料共通(1000bytes)
+  - 1Chatあたりの会話数(maxNumberOfMessagesPerChat)(done)
      - number of messages
-     - 無料、有料共通で制限(20くらい？）
+     - 無料、有料共通で制限
+     - 20(10往復)
+  - １度に送れるメッセージ送信文字数(done)
+     - gpt3.5-turbo の限度の4096トークン（英語だと約16,000字）
+     - 3000文字で制限(for japanese)          
   - 作成できるChat数(ボタンを押せなくする)
      - 無料 １日あたり１つ
      - 有料 制限なし(100)
   - １日あたりのmessage数
      - 無料 10 messages
      - 有料 200 messages
-  - １回の書き込みの文字数制限
-      (firebase側で)
-      jsは共通にする
-      フロントとfirestoreの両方でcheck
 - ui
   - parser markdown
   - scroll down

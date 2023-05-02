@@ -84,10 +84,14 @@ export default defineComponent({
       if (stringLength(message.value) === 0) {
         addError("message", "empty");
       }
-      if (stringLength(message.value) > 200) {
+      // if (stringLength(message.value) > 200) {
+      if ((message.value || "").length > 1000) {
         addError("message", "tooLong");
       }
-      if (messageRef.value?.historyCounter > 3000) {
+      if (messageRef.value?.historyTextCounter > 3000) {
+        addError("history", "tooLong");
+      }
+      if (messageRef.value?.historyCounter > 10) {
         addError("history", "tooLong");
       }
       return ret;
