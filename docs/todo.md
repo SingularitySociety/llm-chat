@@ -3,18 +3,30 @@
   - タイトル/ボタン/ui (done)
   - JSONで言語指定
 - limit
+  - 定義
+    - message
+    - chat(session)
+  - 1回の書き込みの文字数
+     - message length
+     - 無料、有料共通
+  - 1Chatあたりの会話数
+     - number of messages
+     - 無料、有料共通で制限(20くらい？）
+  - 作成できるChat数
+     - 無料 １日あたり１つ
+     - 有料 制限なし
+  - １日あたりのmessage数
+     - 無料 10 messages
+     - 有料 200 messages
   - １回の書き込みの文字数制限
-    (firebase側で)
-    jsは共通にする
-    フロントとfirestoreの両方でcheck
-  - 書き込み回数上限
-    - 無料
-    - 課金
+      (firebase側で)
+      jsは共通にする
+      フロントとfirestoreの両方でcheck
 - ui
   - parser markdown
   - scroll down
   - user viewをわける
-  - historyの日付と書き込み数
+  - historyの日付と書き込み数(done)
   - owner以外はsnapshotしない
 - シェア
   - SNS 
