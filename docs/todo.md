@@ -2,19 +2,19 @@
 - i18n
   - タイトル/ボタン/ui (done)
   - JSONで言語指定
-- limit
+- limit (utils/common)
   - 定義
     - message
     - chat(session)
-  - 1回の書き込みの文字数
+  - 1回の書き込みの文字数(messageMaxLength)
      - message length
-     - 無料、有料共通
-  - 1Chatあたりの会話数
+     - 無料、有料共通(〇〇文字)
+  - 1Chatあたりの会話数(maxNumberOfMessagesPerChat)
      - number of messages
      - 無料、有料共通で制限(20くらい？）
-  - 作成できるChat数
+  - 作成できるChat数(ボタンを押せなくする)
      - 無料 １日あたり１つ
-     - 有料 制限なし
+     - 有料 制限なし(100)
   - １日あたりのmessage数
      - 無料 10 messages
      - 有料 200 messages
