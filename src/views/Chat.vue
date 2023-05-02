@@ -6,12 +6,12 @@
     </div>
     <div v-if="user && chat.uid === user.uid">
       <template v-if="errors['history']">
-        <div v-for="(e, k) in errors['history']" :key="k" >
+        <div v-for="(e, k) in errors['history']" :key="k">
           {{ $t("error.history." + e) }}
         </div>
       </template>
       <template v-else-if="errors['message']">
-        <div v-for="(e, k) in errors['message']" :key="k" >
+        <div v-for="(e, k) in errors['message']" :key="k">
           {{ $t("error.message." + e) }}
         </div>
       </template>
@@ -22,12 +22,12 @@
             class="mt-4 h-24 w-full rounded-lg border-2 p-4"
             v-model="message"
             :placeholder="$t('placeholder.chatMessage')"
-            :disabled="errors['history'] && errors['history'].length >0"
+            :disabled="errors['history'] && errors['history'].length > 0"
           >
           </textarea>
           <button
-            class="m-2 rounded-lg border-2 p-2 text-white font-bold"
-            :class="hasError ? 'bg-blue-200' : 'bg-blue-600' "
+            class="m-2 rounded-lg border-2 p-2 font-bold text-white"
+            :class="hasError ? 'bg-blue-200' : 'bg-blue-600'"
             @click.prevent="writeMessage"
             :disabled="hasError"
           >
@@ -72,7 +72,7 @@ export default defineComponent({
     const user = useUser();
     const message = ref("");
     const messageRef = ref();
-    
+
     const chatId = route.params.chatId as string;
     const chat = ref<DocumentData>({});
     onSnapshot(doc(db, `chats/${chatId}`), (c) => {
@@ -98,7 +98,7 @@ export default defineComponent({
     };
 
     const { hasError, errors } = useError(errorFunc);
-    
+
     const writeMessage = async () => {
       const uid = user.value.uid;
       if (uid && message.value) {
@@ -119,7 +119,7 @@ export default defineComponent({
       writeMessage,
 
       messageRef,
-      
+
       errors,
       hasError,
     };

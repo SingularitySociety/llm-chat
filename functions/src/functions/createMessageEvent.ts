@@ -1,7 +1,7 @@
 import {prompts } from "../utils/prompts";
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
-import { stringLength } from "../utils/common";
+import { historyTextCount, historyCount } from "../utils/common";
 
 const gpt_token = process.env.GPT_API_KEY;
 
@@ -48,7 +48,9 @@ export const createMessageEvent = async (snap: any, context: any) => {
   }
 
   // TODO: magic number 200 should get from limitations from common.
-  if (stringLength(message) === 0 || stringLength(message) > 200) {
+
+  // if (stringLength(message) === 0 || stringLength(message) > 200) {
+  if ((message || "").length > 1000) {
     await updateHistoryErrorAndDelete();
     return 
   }
@@ -56,6 +58,15 @@ export const createMessageEvent = async (snap: any, context: any) => {
   // const chatData = snap.ref.parent.parent.data();
   const chatData = (await snap.ref.parent.parent.get()).data() || {};
   const type = chatData.type;
+
+  if (historyTextCount(chatData) > 3000) {
+    await updateHistoryErrorAndDelete();
+    return 
+  }
+  if (historyCount(chatData) > 10) {
+    await updateHistoryErrorAndDelete();
+    return 
+  }
   
   const prompt = (prompts as any)[type];
   const messages: ChatCompletionRequestMessage[]  = [];

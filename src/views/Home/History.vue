@@ -4,7 +4,11 @@
     <div v-for="(h, k) in histories" :key="k" class="mx-2 text-left">
       <router-link :to="`chats/${h.id}`">
         {{ $t("title." + h.type) }}
-        {{ cdate(h.createdAt?.toDate()).tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
+        {{
+          cdate(h.createdAt?.toDate())
+            .tz("Asia/Tokyo")
+            .format("YYYY/MM/DD HH:mm")
+        }}
         ({{ Math.round((h.histories || []).length / 2) }}回)
       </router-link>
     </div>
@@ -69,5 +73,5 @@ export default defineComponent({
       cdate,
     };
   },
-})
+});
 </script>

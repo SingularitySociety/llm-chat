@@ -23,7 +23,7 @@ export const errorFuncBase = () => {
   return {
     ret,
     addError,
-  }
+  };
 };
 
 export const useError = (errorFunc: () => { [key: string]: any[] }) => {

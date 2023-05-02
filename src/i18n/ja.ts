@@ -53,7 +53,7 @@ const lang = {
   },
   error: {
     history: {
-      tooLong: "書き込みメッセージの上限に達しています"
+      tooLong: "書き込みメッセージの上限に達しています",
     },
     message: {
       empty: "メッセージを入力してください",

@@ -1,9 +1,11 @@
 <template>
   <div>
     <div
-      v-if="(chat.histories || []).length === 0 && ( histories || []).length === 0"
+      v-if="
+        (chat.histories || []).length === 0 && (histories || []).length === 0
+      "
       class="m-4 flex text-left"
-      >
+    >
       {{ $t("chat.empty") }}
     </div>
     <div
@@ -11,24 +13,27 @@
       v-for="(v, k) in chat.histories || []"
       class="m-4 flex text-left"
       :key="k"
-      >
+    >
       {{ $t(v.role === "user" ? "chatUser" : "title." + chat.type) }}:
       {{ v.content }}
-      {{ v.hasError ? "error" : ""}}
+      {{ v.hasError ? "error" : "" }}
     </div>
-    
-    <div
-      v-for="(v, k) in histories || []"
-      class="m-4 flex text-left"
-      :key="k"
-      >
+
+    <div v-for="(v, k) in histories || []" class="m-4 flex text-left" :key="k">
       {{ $t("chatUser") }}: {{ v.message }} ( {{ $t("title.loading") }})
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onUnmounted, PropType, computed } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  onUnmounted,
+  PropType,
+  computed,
+} from "vue";
 import { useRoute } from "vue-router";
 import {
   doc,
@@ -62,11 +67,11 @@ export default defineComponent({
     const historyCounter = computed(() => {
       return historyCount(props.chat.histories || []);
     });
-    
+
     // history
     const histories = ref<DocumentData[]>([]);
     let detachers: Unsubscribe[] = [];
-    
+
     const wasChange = computed(() => {
       return [user.value, props.chat];
     });

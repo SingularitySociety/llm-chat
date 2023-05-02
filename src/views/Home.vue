@@ -20,11 +20,7 @@
 import { defineComponent } from "vue";
 import { prompts } from "@/utils/prompts";
 import { useUser } from "@/utils/utils";
-import {
-  serverTimestamp,
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { useRouter } from "vue-router";
 import { useLang } from "@/i18n/utils";
@@ -34,7 +30,7 @@ import History from "@/views/Home/History.vue";
 export default defineComponent({
   name: "HomePage",
   components: {
-    History
+    History,
   },
   setup() {
     const router = useRouter();
@@ -59,7 +55,6 @@ export default defineComponent({
     return {
       choose,
       prompts,
-
     };
   },
 });

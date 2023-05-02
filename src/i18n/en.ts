@@ -53,7 +53,7 @@ const lang = {
   },
   error: {
     history: {
-      tooLong: "Message limit reached"
+      tooLong: "Message limit reached",
     },
     message: {
       empty: "Enter your message, please",

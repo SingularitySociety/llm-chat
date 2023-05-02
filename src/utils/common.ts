@@ -3,10 +3,14 @@
 //  Do not directly edit files under functions
 import { ChatCompletionRequestMessage } from "openai";
 
-type ChatCompletionRequestMessageExt = ChatCompletionRequestMessage & {hasError: boolean};
+type ChatCompletionRequestMessageExt = ChatCompletionRequestMessage & {
+  hasError: boolean;
+};
 
-export const historyTextCount = (histories: ChatCompletionRequestMessageExt[]) => {
-  return (histories).reduce((tmp: number, c: any) => {
+export const historyTextCount = (
+  histories: ChatCompletionRequestMessageExt[]
+) => {
+  return histories.reduce((tmp: number, c: any) => {
     if (!c.hasError) {
       // for ja.
       const len = stringLength(c.content);
@@ -16,13 +20,13 @@ export const historyTextCount = (histories: ChatCompletionRequestMessageExt[]) =
   }, 0);
 };
 export const historyCount = (histories: ChatCompletionRequestMessageExt[]) => {
-  return (histories).reduce((tmp: number, c: any) => {
-    if (!c.hasError && c.role === 'assistant') {
+  return histories.reduce((tmp: number, c: any) => {
+    if (!c.hasError && c.role === "assistant") {
       return tmp + 1;
     }
     return tmp;
   }, 0);
-}
+};
 export const stringLength = (text: string) => {
   return Array.from(text).length;
 };
@@ -48,5 +52,3 @@ export const limitations = {
     maxNumberOfMessagesPerUser: 200,
   },
 };
-
-
