@@ -1,6 +1,7 @@
 import {prompts } from "../utils/prompts";
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
+import { stringLength } from "../utils/common";
 
 const gpt_token = process.env.GPT_API_KEY;
 
@@ -31,6 +32,26 @@ export const createMessageEvent = async (snap: any, context: any) => {
   // const { chatId } = context.params;
   const { message } = data;
   console.log(message);
+
+  const updateHistoryErrorAndDelete = async () => {
+    const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
+    const histories = chatDataAgain.histories || [];
+    
+    histories.push({
+      role: "user",
+      hasError: true,
+      content: message,
+    });
+    await snap.ref.parent.parent.update({histories});
+    
+    await snap.ref.delete();
+  }
+
+  // TODO: magic number 200 should get from limitations from common.
+  if (stringLength(message) === 0 || stringLength(message) > 200) {
+    await updateHistoryErrorAndDelete();
+    return 
+  }
   
   // const chatData = snap.ref.parent.parent.data();
   const chatData = (await snap.ref.parent.parent.get()).data() || {};
@@ -60,23 +81,11 @@ export const createMessageEvent = async (snap: any, context: any) => {
   const answer = await ask(messages);
   if (!answer) {
     // update failed
-    const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
-    const histories = chatDataAgain.histories || [];
-
-    histories.push({
-      role: "user",
-      hasError: true,
-      content: message,
-    });
-    await snap.ref.parent.parent.update({histories});
-    
-    await snap.ref.delete();
-    
+    await updateHistoryErrorAndDelete();
     return;
   }
   console.log(answer?.content);
 
-  
   //  update history
   // const path = snap.ref.parent.parent.path;
   const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};

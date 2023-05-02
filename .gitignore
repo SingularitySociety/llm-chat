@@ -23,4 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 src/config/project.ts
+functions/src/utils/prompts.ts
+functions/src/utils/common.ts
 *~
