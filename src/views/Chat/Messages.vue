@@ -80,7 +80,7 @@ export default defineComponent({
         d();
       });
       detachers = [];
-      const uid = user.value.uid;
+      const uid = user.value?.uid;
       // console.log(user.value, props.chat);
       if (uid && props.chat.uid && props.chat.uid === uid) {
         const detacher = onSnapshot(
