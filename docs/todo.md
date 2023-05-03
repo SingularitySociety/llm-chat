@@ -28,15 +28,16 @@
   - user viewをわける
   - historyの日付と書き込み数(done)
   - owner以外はsnapshotしない
-  - favicon
+  - favicon(done)
   - logo
 - シェア
   - SNS  (done)
   - OGP (done)
+    - OGP image frame.
 - 認証
-  - twitter
+  - twitter(done)
     - need domain
-  - SMS
+  - SMS(not support)
 - feature
   - chatにいいね
     - らんきんぐ
