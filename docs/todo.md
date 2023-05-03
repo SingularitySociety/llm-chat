@@ -28,6 +28,8 @@
   - user viewをわける
   - historyの日付と書き込み数(done)
   - owner以外はsnapshotしない
+  - favicon
+  - logo
 - シェア
   - SNS  (done)
   - OGP (done)
@@ -38,7 +40,7 @@
 - feature
   - chatにいいね
     - らんきんぐ
-
+  - promptを自作できる
 - マネタイズ
   - 広告
     - adsence
@@ -58,11 +60,11 @@
   - imprompt.net(done)
   - setup domain
     - dns(done)
-    - firebase
-    - mail
+    - firebase(done)
+    - mail(done)
 - secure
   - app check
-- devとprod環境を作る
+- devとprod環境を作る(done)
 - 無料の状態でシェアした人、先着１００人に一ヶ月分にクーポン発行
 - 
 
