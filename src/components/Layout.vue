@@ -38,7 +38,7 @@ export default defineComponent({
           store.commit("setUser", fbuser);
         } else {
           store.commit("setUser", null);
-          signInAnonymously(auth);
+          // signInAnonymously(auth);
         }
       });
     });

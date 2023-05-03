@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  TwitterAuthProvider,
   AuthProvider,
   AuthError,
 } from "firebase/auth";
@@ -42,6 +43,17 @@ export const facebookSignin = (
   return () => {
     const provider = new FacebookAuthProvider();
     provider.addScope("email,user_birthday");
+    authSignIn(provider, callback, errorCallback);
+  };
+};
+
+export const twitterSignin = (
+  callback?: () => void | null,
+  errorCallback?: (error: AuthError) => void | null
+) => {
+  return () => {
+    const provider = new TwitterAuthProvider();
+    // provider.addScope("user_birthday");
     authSignIn(provider, callback, errorCallback);
   };
 };

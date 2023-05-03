@@ -33,6 +33,7 @@
   - OGP (done)
 - 認証
   - twitter
+    - need domain
   - SMS
 - feature
   - chatにいいね
@@ -54,10 +55,11 @@
 - API
   - openai(done)
 - ドメイン
-  - imprompt.netU(done)
+  - imprompt.net(done)
   - setup domain
-    - dns
+    - dns(done)
     - firebase
+    - mail
 - secure
   - app check
 - devとprod環境を作る
