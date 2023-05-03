@@ -2,11 +2,10 @@
   <div id="nav fl">
     <template v-if="isSignedIn">
       <router-link :to="localizedUrl('/')">Home</router-link> |
-      <router-link :to="localizedUrl('/about')">About</router-link>
+      <span @click="signout">Signout</span>
     </template>
     <template v-else>
       <router-link :to="localizedUrl('/')">Home</router-link> |
-      <router-link :to="localizedUrl('/about')">About</router-link> |
       <router-link :to="localizedUrl('/account')">Signin</router-link>
     </template>
     <Languages />
@@ -16,6 +15,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useIsSignedIn } from "@/utils/utils";
+import { auth } from "@/utils/firebase";
+import { signOut } from "firebase/auth";
+
 import Languages from "./Languages.vue";
 
 export default defineComponent({
@@ -25,8 +27,12 @@ export default defineComponent({
   setup() {
     const isSignedIn = useIsSignedIn();
 
+    const signout = () => {
+      signOut(auth);
+    };
     return {
       isSignedIn,
+      signout,
     };
   },
 });

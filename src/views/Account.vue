@@ -11,14 +11,19 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { twitterSignin } from "../utils/SocialLogin";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "AccountPage",
   setup() {
+    const router = useRouter();
+    
     return {
       twitterSignin: twitterSignin(
         () => {
-          alert("OK");
+          // alert("OK");
+          router.push("/");
+          console.log("ok");
         },
         (err) => {
           alert(err.message);
