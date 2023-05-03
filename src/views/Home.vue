@@ -38,7 +38,11 @@ export default defineComponent({
     const { localizedUrl } = useLang();
 
     const choose = async (v: string) => {
-      const uid = user.value.uid;
+      if (!user.value) {
+        router.push(localizedUrl("/account"));
+        return;
+      }
+      const uid = user.value?.uid;
       if (uid && v) {
         const data = {
           type: v,
