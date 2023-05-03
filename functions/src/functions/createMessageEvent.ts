@@ -1,6 +1,4 @@
-import {
-  getStatisticsPath
-} from "./common";
+import { getStatisticsPath } from "./common";
 
 import { prompts } from "../utils/prompts";
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
@@ -14,14 +12,17 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export const ask = async (messages: ChatCompletionRequestMessage[], model = "gpt-3.5-turbo-0301") => {
+export const ask = async (
+  messages: ChatCompletionRequestMessage[],
+  model = "gpt-3.5-turbo-0301"
+) => {
   try {
     const response = await openai.createChatCompletion({
       model: model,
       messages,
       temperature: 0.6,
     });
-    
+
     const answer = response.data.choices[0].message;
     return answer;
   } catch (e) {
@@ -40,16 +41,16 @@ export const createMessageEvent = async (snap: any, context: any) => {
   const updateHistoryErrorAndDelete = async () => {
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
     const histories = chatDataAgain.histories || [];
-    
+
     histories.push({
       role: "user",
       hasError: true,
       content: message,
     });
-    await snap.ref.parent.parent.update({histories});
-    
+    await snap.ref.parent.parent.update({ histories });
+
     await snap.ref.delete();
-  }
+  };
 
   try {
     // TODO: magic number 200 should get from limitations from common.
@@ -57,43 +58,45 @@ export const createMessageEvent = async (snap: any, context: any) => {
     // if (stringLength(message) === 0 || stringLength(message) > 200) {
     if ((message || "").length > 1000) {
       await updateHistoryErrorAndDelete();
-      return 
+      return;
     }
-    
+
     // const chatData = snap.ref.parent.parent.data();
     const chatData = (await snap.ref.parent.parent.get()).data() || {};
     const type = chatData.type;
-    
+
     if (historyTextCount(chatData.histories || []) > 3000) {
       await updateHistoryErrorAndDelete();
-      return 
+      return;
     }
     if (historyCount(chatData.histories || []) > 10) {
       await updateHistoryErrorAndDelete();
-      return 
+      return;
     }
-    
+
     const prompt = (prompts as any)[type];
-    const messages: ChatCompletionRequestMessage[]  = [];
+    const messages: ChatCompletionRequestMessage[] = [];
     if (prompt) {
       messages.push({
         role: "system",
-        content: prompt.prompt.join("\n")
+        content: prompt.prompt.join("\n"),
       });
     }
     if (chatData && chatData.histories) {
-      chatData.histories.map((h: (ChatCompletionRequestMessage & {hasError: boolean})) => {
-        if (!h.hasError) {
-          messages.push(h);
+      chatData.histories.map(
+        (h: ChatCompletionRequestMessage & { hasError: boolean }) => {
+          if (!h.hasError) {
+            messages.push(h);
+          }
         }
-      });
+      );
     }
-    
+
     messages.push({
       role: "user",
-      content: message,
-    })
-    
+      content: message + "(((日本語で答えてください)))",
+    });
+
     const answer = await ask(messages);
     if (!answer) {
       // update failed
@@ -101,7 +104,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
       return;
     }
     // console.log(answer?.content);
-    
+
     //  update history
     // const path = snap.ref.parent.parent.path;
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
@@ -114,21 +117,19 @@ export const createMessageEvent = async (snap: any, context: any) => {
       role: answer?.role || "",
       content: answer?.content || "",
     });
-    await snap.ref.parent.parent.update({histories});
-    
+    await snap.ref.parent.parent.update({ histories });
+
     await snap.ref.delete();
-    
+
     // update counter
     const db = snap.ref.firestore;
     const path = getStatisticsPath(uid);
-    const statictics = (await db.doc(path).get()).data() || {}
+    const statictics = (await db.doc(path).get()).data() || {};
     const counter = (statictics.messageCounter || 0) + 1;
-    const newData = {...statictics, messageCounter: counter};
+    const newData = { ...statictics, messageCounter: counter };
     await db.doc(path).set(newData);
-
   } catch (e) {
     console.log(e);
     await snap.ref.delete();
-    
   }
 };

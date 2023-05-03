@@ -30,7 +30,7 @@
   - owner以外はsnapshotしない
 - シェア
   - SNS  (done)
-  - OGP
+  - OGP (done)
 - 認証
   - twitter
   - SMS

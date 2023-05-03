@@ -5,19 +5,19 @@ import { createImage, uploadImage } from "./image";
 const start = 1;
 
 //  eslint-disable-next-line
-export const updateChatEvent = async (change: any , context: any) => {
+export const updateChatEvent = async (change: any, context: any) => {
   const chatData = change.after.data();
   const chatId = change.after.ref.id;
-  
-  if (chatData.histories && chatData.histories.length > 1 && chatData.imageStatus === undefined) {
-    change.after.ref.update({imageStatus: start});
-    // TODO: role change to name;
-    console.log(title, chatData.type);
+
+  if (
+    chatData.histories &&
+    chatData.histories.length > 1 &&
+    chatData.imageStatus === undefined
+  ) {
+    change.after.ref.update({ imageStatus: start });
+ 
     const text = [
-      [
-        "質問",
-        chatData.histories[0].content,
-      ].join(": "),
+      ["質問", chatData.histories[0].content].join(": "),
       [
         // (title as any)[chatData.histories[1].role as string] || "ボット",
         (title as any)[chatData.type as string] || "ボット",
@@ -28,10 +28,7 @@ export const updateChatEvent = async (change: any , context: any) => {
     const file = await createImage(text);
     const imageUrl = await uploadImage(file, chatId);
 
-    change.after.ref.update({imageStatus: 10, imageUrl});
+    change.after.ref.update({ imageStatus: 10, imageUrl });
     console.log("AA", file);
-    
   }
-  
-}
-
+};

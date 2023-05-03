@@ -20,3 +20,5 @@ if (!admin.apps.length) {
 exportIfNeeded("createMessageTrigger", "firestore/createMessage", exports);
 exportIfNeeded("createChatTrigger", "firestore/createChat", exports);
 exportIfNeeded("updateChatTrigger", "firestore/updateChat", exports);
+
+exportIfNeeded("express", "express", exports);
