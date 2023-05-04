@@ -1,23 +1,38 @@
 import * as admin from "firebase-admin";
 
-import { createCanvas, registerFont } from "canvas";
+import { createCanvas, registerFont, loadImage } from "canvas";
 import * as path from "path";
 import * as fs from "fs";
 import * as os from "os";
 import { v4 as uuidv4 } from "uuid";
 
-registerFont("Noto_Sans_JP/static/NotoSansJP-SemiBold.ttf", { family: "noto" });
+registerFont("tools/Noto_Sans_JP/static/NotoSansJP-SemiBold.ttf", { family: "noto" });
 
-export const createImage = async (text: string) => {
-  const canvas = createCanvas(640, 480);
+const bgImagePath = "tools/images/OGP-Base.png";
+
+const canvasW = 1200;
+const canvasH = 630;
+
+export const createImage = async (text: string, name: string) => {
+  
+  const canvas = createCanvas(canvasW, canvasH);
   const ctx = canvas.getContext("2d");
 
-  const boxW = 600;
+  // image
+  const image = await loadImage(bgImagePath)
+  ctx.drawImage(image, 0, 0, canvasW, canvasH)
+
+  
+  const offsetX = 80;
+  const offsetY = 40;
+  
+  // text
+  const boxW = canvasW - offsetX * 2; // x 
   const boxH = 380;
-  const size = 36;
-  const sizeAscii = 21.5;
-  const sizeH = 44;
-  ctx.font = '36px "noto"';
+  const fontSize = 30 * 2;
+  const fontSizeAscii = fontSize * 0.56;
+  const textH = Math.floor(fontSize * 1.22);
+  ctx.font = `${fontSize}px "noto"`;
 
   const chars = text.split("");
 
@@ -26,11 +41,11 @@ export const createImage = async (text: string) => {
   let w = 0;
   let index = 0;
   for (const char of chars) {
-    const wSize = char.match(/^[\x20-\x7e]*$/) ? sizeAscii : size;
+    const wSize = char.match(/^[\x20-\x7e]*$/) ? fontSizeAscii : fontSize;
 
     if (char === "\n" || w + wSize > boxW) {
       index++;
-      if (index * sizeH >= boxH) {
+      if (index * textH >= boxH) {
         break;
       }
       newData[index] = [] as string[];
@@ -47,11 +62,15 @@ export const createImage = async (text: string) => {
   }
 
   console.log(newData);
-  const x = 40;
   for (const index in newData) {
-    ctx.fillText(newData[index].join(""), x, 20 + (Number(index) + 1) * sizeH);
+    ctx.fillText(newData[index].join(""), offsetX, offsetY + (Number(index) + 1) * textH);
   }
+  // end of message
 
+  // name
+  ctx.fillStyle = "#ffffff"
+  ctx.fillText(name, 40, 590);
+  
   const tmpResizeFile = path.join(os.tmpdir(), uuidv4());
   const saveFile = () => {
     return new Promise((resolve, reject) => {

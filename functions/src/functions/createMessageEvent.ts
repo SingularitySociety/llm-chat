@@ -16,7 +16,7 @@ export const ask = async (
   messages: ChatCompletionRequestMessage[],
   model = "gpt-3.5-turbo-0301"
 ) => {
-  console.log(messages);
+  console.log(messages, model);
   try {
     const response = await openai.createChatCompletion({
       model: model,
@@ -122,7 +122,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
       content: message + "(((日本語で答えてください)))",
     });
 
-    const answer = await ask(messages);
+    const answer = await ask(messages, prompt.model || "gpt-3.5-turbo-0301");
     if (!answer) {
       // update failed
       await updateHistoryErrorAndDelete();
