@@ -37,6 +37,12 @@ From https://github.com/snakajima/SlashGPT.git repository, it take json prompt f
 npx ts-node scripts/convdata.ts
 ```
 
+update slashGPT
+
+```
+yarn upgrade slashGPT
+```
+
 ## deploy
 
 for dev
