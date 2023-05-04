@@ -1,4 +1,6 @@
-import { title } from "../i18n/title";
+// import { title } from "../i18n/title";
+import { bot } from "../i18n/bot";
+import { you } from "../i18n/you";
 import { createImage, uploadImage } from "./image";
 
 // imageStatus
@@ -17,10 +19,10 @@ export const updateChatEvent = async (change: any, context: any) => {
     change.after.ref.update({ imageStatus: start });
  
     const text = [
-      ["質問", chatData.histories[0].content].join(": "),
+      [(you as any)[chatData.type] || "質問", chatData.histories[0].content].join(": "),
       [
         // (title as any)[chatData.histories[1].role as string] || "ボット",
-        (title as any)[chatData.type as string] || "ボット",
+        (bot as any)[chatData.type] || "回答",
         chatData.histories[1].content,
       ].join(": "),
     ].join("\n");
@@ -29,6 +31,5 @@ export const updateChatEvent = async (change: any, context: any) => {
     const imageUrl = await uploadImage(file, chatId);
 
     change.after.ref.update({ imageStatus: 10, imageUrl });
-    console.log("AA", file);
   }
 };
