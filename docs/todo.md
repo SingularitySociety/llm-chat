@@ -25,11 +25,11 @@
 - ui
   - parser markdown
   - scroll down(done)
-  - user viewをわける
+  - user viewをわける(donw)
   - historyの日付と書き込み数(done)
   - owner以外はsnapshotしない
   - favicon(done)
-  - logo
+  - logo(done)
 - シェア
   - SNS  (done)
   - OGP (done)
@@ -39,7 +39,7 @@
   - SMS(not support)
 - feature
   - メッセージ連打できない
-  - fontかえる
+  - fontかえる(done)
   - chatにいいね
     - らんきんぐ
   - promptを自作できる
@@ -47,9 +47,9 @@
   - historyを使う/使わないを設定で切り替え
   - 一覧
   - 上限周り(アカウント)
-  - ログインをTOPに
-  - i18n
-  - GA  
+  - ログインをTOPに(done)
+  - i18n(done)
+  - GA  (done)
 - マネタイズ
   - 広告
     - adsence
@@ -67,7 +67,7 @@
   - openai(done)
 - ドメイン
   - imprompt.net(done)
-  - setup domain
+  - setup domain(done)
     - dns(done)
     - firebase(done)
     - mail(done)

@@ -6,7 +6,7 @@
         <img :src="logo" class="w-12 fill-white" />
       </router-link>
     </div>
-    <div class="flex-item text-2xl">
+    <div class="flex-item text-2xl text-white">
       <router-link to="/">
         <span class="font-serif tefont-2xl">im</span>
         <span class="font-sans font-2xl">prompt</span>
