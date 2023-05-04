@@ -1,7 +1,7 @@
 
 - i18n
   - タイトル/ボタン/ui (done)
-  - JSONで言語指定 ??
+  - JSONで言語指定 ??(done)
 - limit (utils/common)
   - 定義
     - message
@@ -24,7 +24,7 @@
      - 有料 200 messages
 - ui
   - parser markdown
-  - scroll down
+  - scroll down(done)
   - user viewをわける
   - historyの日付と書き込み数(done)
   - owner以外はsnapshotしない
@@ -42,6 +42,8 @@
   - chatにいいね
     - らんきんぐ
   - promptを自作できる
+  - 送信するmessageをpreset + 直近３つにして、永遠に会話できるようにする
+  - historyを使う/使わないを設定で切り替え
 - マネタイズ
   - 広告
     - adsence

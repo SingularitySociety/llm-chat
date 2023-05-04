@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="message">
     <div
       v-if="
         (chat.histories || []).length === 0 && (histories || []).length === 0
@@ -55,7 +55,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, ctx) {
     const route = useRoute();
     const user = useUser();
 
@@ -91,6 +91,7 @@ export default defineComponent({
               data.id = doc.id;
               return data;
             });
+            ctx.emit("updatedMessage");
           }
         );
         detachers.push(detacher);

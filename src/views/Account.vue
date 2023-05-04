@@ -17,7 +17,7 @@ export default defineComponent({
   name: "AccountPage",
   setup() {
     const router = useRouter();
-    
+
     return {
       twitterSignin: twitterSignin(
         () => {

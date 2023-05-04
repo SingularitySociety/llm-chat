@@ -1,8 +1,11 @@
 <template>
   <div class="home">
     {{ $t("title." + (chat.type || "loading")) }}
-    <div class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2">
-      <Messages :chat="chat" ref="messageRef" />
+    <div
+      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2"
+      ref="messageWrapperRef"
+    >
+      <Messages :chat="chat" ref="messageRef" @updatedMessage="scrollMessage" />
     </div>
     <div v-if="user && chat.uid === user.uid">
       <template v-if="errors['history']">
@@ -37,10 +40,7 @@
       </div>
     </div>
 
-    <Share :title="chat.type || ''" />
-    <div v-if="chat && chat.imageUrl">
-      <img :src="chat.imageUrl" />
-    </div>
+    <Share :title="chat.type || ''" class="mt-2" />
   </div>
 </template>
 
@@ -74,7 +74,9 @@ export default defineComponent({
     const route = useRoute();
     const user = useUser();
     const message = ref("");
+
     const messageRef = ref();
+    const messageWrapperRef = ref();
 
     const chatId = route.params.chatId as string;
     const chat = ref<DocumentData>({});
@@ -102,6 +104,7 @@ export default defineComponent({
 
     const { hasError, errors } = useError(errorFunc);
 
+    let writtenMessage = false;
     const writeMessage = async () => {
       const uid = user.value.uid;
       if (uid && message.value) {
@@ -112,6 +115,14 @@ export default defineComponent({
         };
         await addDoc(collection(db, `chats/${chatId}/tmp`), data);
         message.value = "";
+        writtenMessage = true;
+      }
+    };
+
+    const scrollMessage = () => {
+      if (writtenMessage) {
+        messageWrapperRef.value.scrollTop =
+          messageWrapperRef.value.scrollHeight;
       }
     };
 
@@ -122,6 +133,8 @@ export default defineComponent({
       writeMessage,
 
       messageRef,
+      messageWrapperRef,
+      scrollMessage,
 
       errors,
       hasError,

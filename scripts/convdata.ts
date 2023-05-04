@@ -9,14 +9,18 @@ const main = () => {
     source: string,
     prompt: string[]
   }} = {};
+
+  
   for (const file of dir) {
     if (/json/.test(file)) {
       const filePath = base + file;
       const key = file.split(".")[0];
       // console.log(filePath);
       const json = JSON.parse(fs.readFileSync(filePath).toString());
-      console.log(json);
-      ret[key] = json;
+      console.log(json.language);
+      if (json.language && json.language.includes("ja")) {
+        ret[key] = json;
+      }
     }
   }
   console.log(ret);
