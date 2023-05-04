@@ -2,6 +2,7 @@
   <div class="layout min-h-screen font-noto font-medium h-full">
     <HeaderMenu />
     <router-view />
+    <FooterMenu />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import { User, signInAnonymously } from "firebase/auth";
 import { useI18nParam } from "@/i18n/utils";
 
 import HeaderMenu from "@/components/HeaderMenu.vue";
+import FooterMenu from "@/components/FooterMenu.vue";
 
 interface UserData {
   user: User | null;
@@ -24,6 +26,7 @@ export default defineComponent({
   name: "AppLayout",
   components: {
     HeaderMenu,
+    FooterMenu,
   },
   async setup() {
     const store = useStore();

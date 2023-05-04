@@ -6,7 +6,7 @@ import * as fs from "fs";
 import * as os from "os";
 import { v4 as uuidv4 } from "uuid";
 
-registerFont("tools/Noto_Sans_JP/static/NotoSansJP-SemiBold.ttf", { family: "noto" });
+registerFont("tools/Noto_Sans_JP/static/NotoSansJP-Bold.ttf", { family: "noto" });
 
 const bgImagePath = "tools/images/OGP-Base.png";
 

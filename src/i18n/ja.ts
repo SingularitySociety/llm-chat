@@ -8,6 +8,7 @@ const lang = {
     hello: "こんにちは、世界",
   },
   twitterLogin: "Twitterでログイン",
+  signout: "ログアウト",
   chatUser: "あなた",
   botUser: "回答",
   home: {

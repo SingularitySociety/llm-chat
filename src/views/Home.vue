@@ -1,5 +1,5 @@
 <template>
-  <div class="home m-8">
+  <div class="home mx-8 my-2">
     <h2 class="text-lg font-bold">{{ $t("home.chooseOne") }}</h2>
     <div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
