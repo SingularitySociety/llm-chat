@@ -1,14 +1,14 @@
 <template>
 <div id="nav fl">
-  <img :src="logo" class="w-12"  />
-  <template v-if="isSignedIn">
-    <router-link :to="localizedUrl('/')">Home</router-link> |
-    <span @click="signout">Signout</span>
-  </template>
-  <template v-else>
-    <router-link :to="localizedUrl('/')">Home</router-link> |
-    <router-link :to="localizedUrl('/account')">Signin</router-link>
-  </template>
+  <div class="flex m-auto">
+    <div class="flex-item">
+      <img :src="logo" class="w-12 fill-white" />
+    </div>
+    <div class="flex-item text-2xl">
+      <span class="font-serif tefont-2xl">im</span>
+      <span class="font-sans font-2xl">prompt</span>
+    </div>
+  </div>
 </div>
 </template>
 
