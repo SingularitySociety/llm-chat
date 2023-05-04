@@ -16,6 +16,7 @@ export const ask = async (
   messages: ChatCompletionRequestMessage[],
   model = "gpt-3.5-turbo-0301"
 ) => {
+  console.log(messages);
   try {
     const response = await openai.createChatCompletion({
       model: model,
@@ -30,6 +31,30 @@ export const ask = async (
     return null;
   }
 };
+
+const pickData = (array: string[]) => {
+  const ret: string[] = [];
+  [1,2,3].map(() => {
+    const index = Math.floor(Math.random() * array.length);
+    ret.push(array[index]);
+    array.splice(index, 1);
+  });
+  return ret;
+}
+export const promptsContents = (prompt: any) => {
+  const message = prompt.prompt.join("\n");
+  if (prompt.data) {
+    const array = [...prompt.data];
+    const ret = pickData(array);
+    const newMessage = ret.reduce((tmp: string, word: string) => {
+      return tmp.replace("{random}", word)
+    }, message);
+    return newMessage;
+  }
+  return message;
+};
+   
+
 
 //  eslint-disable-next-line
 export const createMessageEvent = async (snap: any, context: any) => {
@@ -79,7 +104,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
     if (prompt) {
       messages.push({
         role: "system",
-        content: prompt.prompt.join("\n"),
+        content: promptsContents(prompt),
       });
     }
     if (chatData && chatData.histories) {
