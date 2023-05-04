@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout min-h-screen">
     <HeaderMenu />
     <router-view />
   </div>
@@ -52,6 +52,13 @@ export default defineComponent({
 
 <style>
 .layout {
-  background-image: linear-gradient(120deg, rgba(252, 14, 125, 0.8), rgba(255, 255, 255, 0)), linear-gradient(185deg, rgba(253, 203, 82, 0.8) , rgba(255, 255, 255, 0)), linear-gradient(340deg, rgba(40, 233, 248, 0.98) , rgba(255, 255, 255, 0)), linear-gradient(340deg, rgba(75, 30, 219, 0.8) , rgba(255, 255, 255, 0));
-  }
+  background-image: linear-gradient(
+      120deg,
+      rgba(252, 14, 125, 0.8),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(185deg, rgba(253, 203, 82, 0.8), rgba(255, 255, 255, 0)),
+    linear-gradient(340deg, rgba(40, 233, 248, 0.98), rgba(255, 255, 255, 0)),
+    linear-gradient(340deg, rgba(75, 30, 219, 0.8), rgba(255, 255, 255, 0));
+}
 </style>

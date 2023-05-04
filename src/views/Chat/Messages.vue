@@ -113,7 +113,6 @@ export default defineComponent({
 
       youKey,
       botKey,
-      
     };
   },
 });

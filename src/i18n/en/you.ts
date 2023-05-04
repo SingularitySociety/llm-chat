@@ -1,3 +1,3 @@
 export const you = {
-  "doraemon": "のび太"
-}
+  doraemon: "のび太",
+};
