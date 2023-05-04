@@ -1,20 +1,33 @@
 <template>
   <div class="home">
-    {{ $t("title." + (chat.type || "loading")) }}
+    <div class="m-2 text-3xl text-white font-bold">
+      {{ $t("title." + (chat.type || "loading")) }}
+    </div>
+    <!-- Message -->
+    <div v-if="user === undefined" />
+    <div v-else-if="user === null"
+         class="mx-8 flex-col rounded-lg py-2 bg-white  bg-opacity-70"
+         >
+      <Messages :chat="chat" />
+    </div>
     <div
-      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2 bg-white"
+      v-else
+      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg py-2 bg-white  bg-opacity-70"
       ref="messageWrapperRef"
     >
       <Messages :chat="chat" ref="messageRef" @updatedMessage="scrollMessage" />
     </div>
+
+    <!-- write message -->
     <div v-if="user && chat.uid === user.uid">
+      
       <template v-if="errors['history']">
-        <div v-for="(e, k) in errors['history']" :key="k">
+        <div v-for="(e, k) in errors['history']" :key="k" class="mt-2 text-white font-bold text-opacity-80">
           {{ $t("error.history." + e) }}
         </div>
       </template>
       <template v-else-if="errors['message']">
-        <div v-for="(e, k) in errors['message']" :key="k">
+        <div v-for="(e, k) in errors['message']" :key="k" class="mt-2 text-white font-bold text-opacity-80">
           {{ $t("error.message." + e) }}
         </div>
       </template>
@@ -22,7 +35,7 @@
       <div class="mx-16">
         <form @submit.prevent="writeMessage">
           <textarea
-            class="mt-4 h-24 w-full rounded-lg border-2 p-4"
+            class="mt-4 h-24 w-full rounded-lg p-4"
             v-model="message"
             :placeholder="$t('placeholder.chatMessage')"
             :disabled="errors['history'] && errors['history'].length > 0"
@@ -40,7 +53,7 @@
       </div>
     </div>
 
-    <Share :title="chat.type || ''" class="mt-2" />
+    <Share :title="chat.type || ''" class="m-4" />
   </div>
 </template>
 

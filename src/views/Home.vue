@@ -1,10 +1,10 @@
 <template>
-  <div class="home">
+  <div class="home m-8">
     <h2 class="text-lg font-bold">{{ $t("home.chooseOne") }}</h2>
     <div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
         <button
-          class="m-2 rounded-lg bg-sky-400 p-2 text-white"
+          class="m-2 rounded-lg bg-sky-400 p-2 text-white font-bold"
           @click="choose(v)"
         >
           {{ $t("title." + v) }}
@@ -12,7 +12,11 @@
       </span>
     </div>
 
-    <History />
+    <div v-if="user === undefined" />
+    <History v-else-if="user" class="bg-white rounded-lg  bg-opacity-70" />
+    <div v-else>
+      <Account />
+    </div>
   </div>
 </template>
 
@@ -26,11 +30,13 @@ import { useRouter } from "vue-router";
 import { useLang } from "@/i18n/utils";
 
 import History from "@/views/Home/History.vue";
+import Account from "@/views/Account.vue";
 
 export default defineComponent({
   name: "HomePage",
   components: {
     History,
+    Account,
   },
   setup() {
     const router = useRouter();
@@ -59,6 +65,7 @@ export default defineComponent({
     return {
       choose,
       prompts,
+      user,
     };
   },
 });

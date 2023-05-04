@@ -1,5 +1,5 @@
 <template>
-  <div class="layout min-h-screen">
+  <div class="layout min-h-screen font-noto font-medium">
     <HeaderMenu />
     <router-view />
   </div>
@@ -51,14 +51,18 @@ export default defineComponent({
 </script>
 
 <style>
+
 .layout {
-  background-image: linear-gradient(
-      120deg,
-      rgba(252, 14, 125, 0.8),
-      rgba(255, 255, 255, 0)
-    ),
-    linear-gradient(185deg, rgba(253, 203, 82, 0.8), rgba(255, 255, 255, 0)),
-    linear-gradient(340deg, rgba(40, 233, 248, 0.98), rgba(255, 255, 255, 0)),
-    linear-gradient(340deg, rgba(75, 30, 219, 0.8), rgba(255, 255, 255, 0));
+
+    background-color:hsla(258,100%,49%,1);
+    background-image:
+        radial-gradient(at 0% 0%, hsla(341,100%,55%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 64%, hsla(296,100%,57%,1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(172,100%,50%,1) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(47,100%,61%,1) 0px, transparent 50%),
+        radial-gradient(at 100% 36%, hsla(36,100%,50%,1) 0px, transparent 50%),
+        radial-gradient(at 30% 26%, hsla(340,100%,53%,1) 0px, transparent 50%),
+        radial-gradient(at 51% 0%, hsla(22,100%,62%,1) 0px, transparent 50%);
+    
 }
 </style>

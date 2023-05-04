@@ -7,7 +7,8 @@ const lang = {
   message: {
     hello: "こんにちは、世界",
   },
-  chatUser: "質問",
+  twitterLogin: "Twitterでログイン",
+  chatUser: "あなた",
   botUser: "回答",
   home: {
     chooseOne: "話す相手を選ぶ",

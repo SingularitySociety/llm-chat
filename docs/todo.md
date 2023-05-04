@@ -36,9 +36,10 @@
     - OGP image frame.
 - 認証
   - twitter(done)
-    - need domain
   - SMS(not support)
 - feature
+  - メッセージ連打できない
+  - fontかえる
   - chatにいいね
     - らんきんぐ
   - promptを自作できる

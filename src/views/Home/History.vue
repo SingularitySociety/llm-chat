@@ -38,11 +38,11 @@ export default defineComponent({
     const histories = ref<DocumentData[]>([]);
     let detachers: Unsubscribe[] = [];
     const load = () => {
+      detachers.map((d) => {
+        d();
+      });
+      detachers = [];
       if (user.value) {
-        detachers.map((d) => {
-          d();
-        });
-        detachers = [];
         const uid = user.value.uid;
         const detacher = onSnapshot(
           query(
@@ -59,6 +59,8 @@ export default defineComponent({
           }
         );
         detachers.push(detacher);
+      } else {
+        histories.value = [];
       }
     };
     watch(user, load);

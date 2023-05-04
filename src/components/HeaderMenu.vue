@@ -8,7 +8,6 @@
       <router-link :to="localizedUrl('/')">Home</router-link> |
       <router-link :to="localizedUrl('/account')">Signin</router-link>
     </template>
-    <Languages />
   </div>
 </template>
 
@@ -18,11 +17,11 @@ import { useIsSignedIn } from "@/utils/utils";
 import { auth } from "@/utils/firebase";
 import { signOut } from "firebase/auth";
 
-import Languages from "./Languages.vue";
+// import Languages from "./Languages.vue";
 
 export default defineComponent({
   components: {
-    Languages,
+//    Languages,
   },
   setup() {
     const isSignedIn = useIsSignedIn();
