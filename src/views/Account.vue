@@ -2,9 +2,9 @@
   <div class="account mt-4">
     <a
       @click="twitterSignin"
-      class="inline-flex h-12 items-center justify-center rounded-lg bg-black bg-opacity-70 px-6 shadow-lg hover:bg-red-200 hover:text-white bg-white"
-      >
-      {{ $t('twitterLogin') }}
+      class="inline-flex h-12 items-center justify-center rounded-lg bg-black bg-white bg-opacity-70 px-6 shadow-lg hover:bg-red-200 hover:text-white"
+    >
+      {{ $t("twitterLogin") }}
     </a>
   </div>
 </template>

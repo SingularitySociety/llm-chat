@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <div class="m-2 text-3xl text-white font-bold">
+    <div class="m-2 text-3xl font-bold text-white">
       {{ $t("title." + (chat.type || "loading")) }}
     </div>
     <!-- Message -->
     <div v-if="user === undefined" />
-    <div v-else-if="user === null"
-         class="mx-8 flex-col rounded-lg py-2 bg-white  bg-opacity-70"
-         >
+    <div
+      v-else-if="user === null"
+      class="mx-8 flex-col rounded-lg bg-white bg-opacity-70 py-2"
+    >
       <Messages :chat="chat" />
     </div>
     <div
       v-else
-      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg py-2 bg-white  bg-opacity-70"
+      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg bg-white bg-opacity-70 py-2"
       ref="messageWrapperRef"
     >
       <Messages :chat="chat" ref="messageRef" @updatedMessage="scrollMessage" />
@@ -20,14 +21,21 @@
 
     <!-- write message -->
     <div v-if="user && chat.uid === user.uid">
-      
       <template v-if="errors['history']">
-        <div v-for="(e, k) in errors['history']" :key="k" class="mt-2 text-white font-bold text-opacity-80">
+        <div
+          v-for="(e, k) in errors['history']"
+          :key="k"
+          class="mt-2 font-bold text-white text-opacity-80"
+        >
           {{ $t("error.history." + e) }}
         </div>
       </template>
       <template v-else-if="errors['message']">
-        <div v-for="(e, k) in errors['message']" :key="k" class="mt-2 text-white font-bold text-opacity-80">
+        <div
+          v-for="(e, k) in errors['message']"
+          :key="k"
+          class="mt-2 font-bold text-white text-opacity-80"
+        >
           {{ $t("error.message." + e) }}
         </div>
       </template>

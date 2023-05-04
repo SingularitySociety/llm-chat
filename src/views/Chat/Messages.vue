@@ -13,11 +13,11 @@
       v-for="(v, k) in chat.histories || []"
       class="m-4 text-left"
       :key="k"
-      >
+    >
       <span class="font-bold">
         {{ $t(v.role === "user" ? youKey(chat.type) : botKey(chat.type)) }}
       </span>
-        :
+      :
       {{ v.content }}
       {{ v.hasError ? "error" : "" }}
     </div>

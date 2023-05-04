@@ -51,18 +51,18 @@ export default defineComponent({
 </script>
 
 <style>
-
 .layout {
-
-    background-color:hsla(258,100%,49%,1);
-    background-image:
-        radial-gradient(at 0% 0%, hsla(341,100%,55%,1) 0px, transparent 50%),
-        radial-gradient(at 0% 64%, hsla(296,100%,57%,1) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, hsla(172,100%,50%,1) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, hsla(47,100%,61%,1) 0px, transparent 50%),
-        radial-gradient(at 100% 36%, hsla(36,100%,50%,1) 0px, transparent 50%),
-        radial-gradient(at 30% 26%, hsla(340,100%,53%,1) 0px, transparent 50%),
-        radial-gradient(at 51% 0%, hsla(22,100%,62%,1) 0px, transparent 50%);
-    
+  background-color: hsla(258, 100%, 49%, 1);
+  background-image: radial-gradient(
+      at 0% 0%,
+      hsla(341, 100%, 55%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 0% 64%, hsla(296, 100%, 57%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(172, 100%, 50%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(47, 100%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 36%, hsla(36, 100%, 50%, 1) 0px, transparent 50%),
+    radial-gradient(at 30% 26%, hsla(340, 100%, 53%, 1) 0px, transparent 50%),
+    radial-gradient(at 51% 0%, hsla(22, 100%, 62%, 1) 0px, transparent 50%);
 }
 </style>

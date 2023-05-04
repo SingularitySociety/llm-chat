@@ -4,7 +4,7 @@
     <div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
         <button
-          class="m-2 rounded-lg bg-sky-400 p-2 text-white font-bold"
+          class="m-2 rounded-lg bg-sky-400 p-2 font-bold text-white"
           @click="choose(v)"
         >
           {{ $t("title." + v) }}
@@ -13,7 +13,7 @@
     </div>
 
     <div v-if="user === undefined" />
-    <History v-else-if="user" class="bg-white rounded-lg  bg-opacity-70" />
+    <History v-else-if="user" class="rounded-lg bg-white bg-opacity-70" />
     <div v-else>
       <Account />
     </div>
