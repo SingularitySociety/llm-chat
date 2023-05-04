@@ -1,11 +1,14 @@
 import languages from "./languages";
 import { title } from "./ja/title";
+import { bot } from "./ja/bot";
+import { you } from "./ja/you";
 
 const lang = {
   message: {
     hello: "こんにちは、世界",
   },
   chatUser: "質問",
+  botUser: "回答",
   home: {
     chooseOne: "話す相手を選ぶ",
     history: "会話履歴",
@@ -15,6 +18,8 @@ const lang = {
     empty: "まだ会話が有りません",
   },
   title,
+  bot,
+  you,
   placeholder: {
     chatMessage: "ここにメッセージを書いてください",
   },

@@ -14,7 +14,7 @@
       class="m-4 flex text-left"
       :key="k"
     >
-      {{ $t(v.role === "user" ? "chatUser" : "title." + chat.type) }}:
+      {{ $t(v.role === "user" ? youKey(chat.type) : botKey(chat.type)) }}:
       {{ v.content }}
       {{ v.hasError ? "error" : "" }}
     </div>
@@ -46,6 +46,7 @@ import {
 import { db } from "@/utils/firebase";
 import { useUser } from "@/utils/utils";
 import { stringLength, historyTextCount, historyCount } from "@/utils/common";
+import { youKey, botKey } from "@/i18n/utils";
 
 export default defineComponent({
   name: "HomePage",
@@ -109,6 +110,10 @@ export default defineComponent({
 
       historyTextCounter,
       historyCounter,
+
+      youKey,
+      botKey,
+      
     };
   },
 });

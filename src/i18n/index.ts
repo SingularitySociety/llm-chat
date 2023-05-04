@@ -3,7 +3,7 @@ import ja from "./ja";
 
 export const defaultLanguage = "ja";
 
-const messages = {
+export const messages = {
   en,
   ja,
 };

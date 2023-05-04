@@ -2,7 +2,7 @@ import { App, computed, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
-import { defaultLanguage } from "./";
+import { defaultLanguage, messages } from "./";
 
 export const i18nUtils = (app: App) => {
   app.config.globalProperties.localizedUrl = (path: string) => {
@@ -45,4 +45,18 @@ export const useLang = () => {
     lang,
     localizedUrl,
   };
+};
+
+export const youKey = (chatType: string) => {
+  if ((messages.ja.you as any)[chatType]) {
+    return "you." + chatType;
+  }
+  return "chatUser";
+};
+
+export const botKey = (chatType: string) => {
+  if ((messages.ja.bot as any)[chatType]) {
+    return "bot." + chatType;
+  }
+  return "botUser";
 };
