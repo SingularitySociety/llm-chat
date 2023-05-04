@@ -2,7 +2,7 @@
   <div class="home">
     {{ $t("title." + (chat.type || "loading")) }}
     <div
-      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2"
+      class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg border-2 bg-white"
       ref="messageWrapperRef"
     >
       <Messages :chat="chat" ref="messageRef" @updatedMessage="scrollMessage" />
