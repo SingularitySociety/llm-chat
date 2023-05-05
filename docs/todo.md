@@ -38,6 +38,7 @@
   - twitter(done)
   - SMS(not support)
 - feature
+  - 会話数は、dbにも入れておく
   - メッセージ連打できない
   - fontかえる(done)
   - chatにいいね

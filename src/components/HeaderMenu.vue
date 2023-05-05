@@ -3,13 +3,7 @@
   <div class="flex items-center justify-center">
     <div class="flex-item">
       <router-link to="/">
-        <img :src="logo" class="w-12 fill-white" />
-      </router-link>
-    </div>
-    <div class="flex-item text-2xl text-white">
-      <router-link to="/">
-        <span class="font-serif tefont-2xl">im</span>
-        <span class="font-sans font-2xl">prompt</span>
+        <img :src="logo" class="h-10" />
       </router-link>
     </div>
   </div>
@@ -19,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import logo from "@/components/LogoMark.svg?raw";
+import logo from "@/components/Logo-Horizontal.svg?raw";
 
 
 export default defineComponent({
