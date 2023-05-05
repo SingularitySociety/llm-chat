@@ -63,6 +63,13 @@ export const createMessageEvent = async (snap: any, context: any) => {
   const { message, uid } = data;
   console.log(message);
 
+  const coll = await snap.ref.parent.get();
+  if (coll.docs.length > 1) {
+    // duplicate
+    await snap.ref.delete();
+    return;
+  }
+  
   const updateHistoryErrorAndDelete = async () => {
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
     const histories = chatDataAgain.histories || [];
