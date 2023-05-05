@@ -20,7 +20,7 @@
     </div>
 
     <!-- write message -->
-    <div v-if="user && chat.uid === user.uid">
+    <div v-if="isWrittable">
       <template v-if="errors['history']">
         <div
           v-for="(e, k) in errors['history']"
@@ -46,14 +46,14 @@
             class="mt-4 h-24 w-full rounded-lg p-4"
             v-model="message"
             :placeholder="$t('placeholder.chatMessage')"
-            :disabled="errors['history'] && errors['history'].length > 0"
+            :disabled="(errors['history'] && errors['history'].length > 0) || isWriting"
           >
           </textarea>
           <button
             class="m-2 rounded-lg border-2 p-2 font-bold text-white"
             :class="hasError ? 'bg-blue-200' : 'bg-blue-600'"
             @click.prevent="writeMessage"
-            :disabled="hasError"
+            :disabled="hasError || isWriting"
           >
             {{ $t("chat.submit") }}
           </button>
@@ -105,6 +105,29 @@ export default defineComponent({
       chat.value = c.data() || {};
     });
 
+    const isWrittable = computed(() => {
+      return user.value && chat.value.uid === user.value.uid;
+    });
+
+    const isWriting = ref(false);
+    let writingDetacher: Unsubscribe | null = null;
+    const watchWriting = async () => {
+      if (writingDetacher) {
+        writingDetacher()
+      }
+      if (isWrittable.value) {
+        writingDetacher = onSnapshot(collection(db, `chats/${chatId}/tmp`), (c) => {
+          isWriting.value = c.docs.length > 0;
+        });
+      }
+    };
+    if (isWrittable.value) {
+      watchWriting();
+    }
+    watch(isWrittable, () => {
+      watchWriting();
+    });
+    
     const errorFunc = () => {
       const { ret, addError } = errorFuncBase();
       if (stringLength(message.value) === 0) {
@@ -159,6 +182,9 @@ export default defineComponent({
 
       errors,
       hasError,
+
+      isWrittable,
+      isWriting,
     };
   },
 });
