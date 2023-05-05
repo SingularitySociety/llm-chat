@@ -172,7 +172,7 @@ export default defineComponent({
       if (messageRef.value?.historyTextCounter > 3000) {
         addError("history", "tooLong");
       }
-      if (messageRef.value?.historyCounter > 10) {
+      if (messageRef.value?.historyCounter > 17) {
         addError("history", "tooLong");
       }
       return ret;

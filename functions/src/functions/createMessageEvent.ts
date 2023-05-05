@@ -91,7 +91,6 @@ export const createMessageEvent = async (snap: any, context: any) => {
       return;
     }
 
-    // const chatData = snap.ref.parent.parent.data();
     const chatData = (await snap.ref.parent.parent.get()).data() || {};
     const type = chatData.type;
 
@@ -99,7 +98,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
       await updateHistoryErrorAndDelete();
       return;
     }
-    if (historyCount(chatData.histories || []) > 10) {
+    if (historyCount(chatData.histories || []) > 17) {
       await updateHistoryErrorAndDelete();
       return;
     }
@@ -135,6 +134,13 @@ export const createMessageEvent = async (snap: any, context: any) => {
         role: "assistant",
         content: prompt.intro[introIndex || 0],
       });
+      await snap.ref.parent.parent.update({
+        histories: [{
+          role: "assistant",
+          content: prompt.intro[introIndex || 0] || "",
+        }],
+        counter: 1,
+      });
     }
 
     messages.push({
@@ -151,12 +157,6 @@ export const createMessageEvent = async (snap: any, context: any) => {
     //  update history
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
     const histories = chatDataAgain.histories || [];
-    if (hasFitstAssist) {
-      histories.push({
-        role: "assistant",
-        content: prompt.intro[introIndex || 0] || "",
-      });
-    }
 
     histories.push({
       role: "user",
