@@ -9,7 +9,7 @@ service cloud.firestore {
     }
     match /chats/{chatId}/tmp/{messageId} {
       allow read: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid;
-      allow create: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid && request.resource.data.keys().hasAll(['uid', 'message', 'createdAt']);
+      allow create: if get(/databases/$(database)/documents/chats/$(chatId)).data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid && request.resource.data.keys().hasAll(['uid', 'message', 'createdAt', 'introIndex']);
       allow update, delete: if false;
     }
 

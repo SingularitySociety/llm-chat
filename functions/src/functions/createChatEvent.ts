@@ -6,8 +6,8 @@ export const createChatEvent = async (snap: any, context: any) => {
 
   const db = snap.ref.firestore;
   const { uid } = data;
-  await snap.ref.update({counter: 0});
-  
+  await snap.ref.update({ counter: 0 });
+
   const path = getStatisticsPath(uid);
   const statictics = (await db.doc(path).get()).data() || {};
   const counter = (statictics.chatCounter || 0) + 1;

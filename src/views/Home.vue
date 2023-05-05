@@ -1,11 +1,23 @@
 <template>
   <div class="home mx-8 my-2">
-    <h2 class="text-lg font-bold">{{ $t("home.chooseOne") }}</h2>
+    <h2 class="text-lg font-bold" v-if="user">{{ $t("home.chooseOne") }}</h2>
+    <h2 class="text-lg font-bold" v-else>{{ $t("home.requireLogin") }}</h2>
     <div>
+      <div v-if="user" class="font-bold text-white">
+        １日にチャットが出来る相手は１人だけ。ここから選んでね。
+      </div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
         <button
           class="m-2 rounded-lg bg-sky-400 p-2 font-bold text-white"
           @click="choose(v)"
+          v-if="user"
+        >
+          {{ $t("title." + v) }}
+        </button>
+        <button
+          class="m-2 rounded-lg bg-sky-400 bg-opacity-40 p-2 font-bold text-white text-opacity-40"
+          :disabled="true"
+          v-else
         >
           {{ $t("title." + v) }}
         </button>

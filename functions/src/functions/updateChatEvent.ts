@@ -17,7 +17,7 @@ export const updateChatEvent = async (change: any, context: any) => {
     chatData.imageStatus === undefined
   ) {
     change.after.ref.update({ imageStatus: start });
- 
+
     /*
     const text = [
       [(you as any)[chatData.type] || "質問", chatData.histories[0].content].join(": "),

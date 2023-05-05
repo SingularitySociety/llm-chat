@@ -18,9 +18,13 @@
         class="mx-16 h-96 flex-col overflow-y-scroll rounded-lg bg-white bg-opacity-70 py-2"
         ref="messageWrapperRef"
       >
+        <!-- for chat owner -->
         <Messages
           :chat="chat"
           ref="messageRef"
+          :isWrittable="isWrittable"
+          :introIndex="introIndex"
+          :introMessage="introMessage"
           @updatedMessage="scrollMessage"
         />
       </div>
@@ -111,11 +115,19 @@ export default defineComponent({
 
     const chatId = route.params.chatId as string;
     const chat = ref<DocumentData>({});
+    const introIndex = ref<number | null>(null);
+    const introMessage = ref<string | null>(null);
     onSnapshot(doc(db, `chats/${chatId}`), (c) => {
       chat.value = c.data() || {};
       notFound.value = !c.data();
       if (!notFound.value && !chat.value.histories) {
         const prompt = (prompts as any)[chat.value.type];
+        if (!prompt.wip) {
+          if (prompt.intro) {
+            introIndex.value = Math.floor(Math.random() * prompt.intro.length);
+            introMessage.value = prompt.intro[introIndex.value];
+          }
+        }
         if (prompt.sample) {
           message.value = prompt.sample;
         }
@@ -176,6 +188,7 @@ export default defineComponent({
           uid,
           message: message.value,
           createdAt: serverTimestamp(),
+          introIndex: introIndex.value || 0,
         };
         await addDoc(collection(db, `chats/${chatId}/tmp`), data);
         message.value = "";
@@ -207,6 +220,8 @@ export default defineComponent({
       isWriting,
 
       notFound,
+      introIndex,
+      introMessage,
     };
   },
 });

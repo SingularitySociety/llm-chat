@@ -1,16 +1,21 @@
 <template>
   <div>
     <h2 class="text-lg font-bold">{{ $t("home.history") }}</h2>
-    <div v-for="(h, k) in histories" :key="k" class="mx-2 text-left">
-      <router-link :to="`chats/${h.id}`">
-        {{ $t("title." + h.type) }}
-        {{
-          cdate(h.createdAt?.toDate())
-            .tz("Asia/Tokyo")
-            .format("YYYY/MM/DD HH:mm")
-        }}
-        ({{ Math.round((h.histories || []).length / 2) }}回)
-      </router-link>
+    <div v-if="histories.length === 0">
+      {{ $t("home.noHistory") }}
+    </div>
+    <div v-else>
+      <div v-for="(h, k) in histories" :key="k" class="mx-2 text-left">
+        <router-link :to="`chats/${h.id}`">
+          {{ $t("title." + h.type) }}
+          {{
+            cdate(h.createdAt?.toDate())
+              .tz("Asia/Tokyo")
+              .format("YYYY/MM/DD HH:mm")
+          }}
+          ({{ Math.round((h.histories || []).length / 2) }}回)
+        </router-link>
+      </div>
     </div>
   </div>
 </template>

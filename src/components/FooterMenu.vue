@@ -1,9 +1,12 @@
 <template>
-  <div class="p-10">
+  <div class="p-10 font-bold text-white">
+    <span>
+      <router-link to="/">
+        {{ $t("menu.home") }}
+      </router-link>
+    </span>
     <template v-if="isSignedIn">
-      <span @click="signout" class="font-bold text-white">{{
-        $t("signout")
-      }}</span>
+      |<span @click="signout">{{ $t("menu.signout") }}</span>
     </template>
   </div>
 </template>

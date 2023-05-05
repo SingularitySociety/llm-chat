@@ -6,7 +6,9 @@ import * as fs from "fs";
 import * as os from "os";
 import { v4 as uuidv4 } from "uuid";
 
-registerFont("tools/Noto_Sans_JP/static/NotoSansJP-Bold.ttf", { family: "noto" });
+registerFont("tools/Noto_Sans_JP/static/NotoSansJP-Bold.ttf", {
+  family: "noto",
+});
 
 const bgImagePath = "tools/images/OGP-Base.png";
 
@@ -14,20 +16,18 @@ const canvasW = 1200;
 const canvasH = 630;
 
 export const createImage = async (text: string, name: string) => {
-  
   const canvas = createCanvas(canvasW, canvasH);
   const ctx = canvas.getContext("2d");
 
   // image
-  const image = await loadImage(bgImagePath)
-  ctx.drawImage(image, 0, 0, canvasW, canvasH)
+  const image = await loadImage(bgImagePath);
+  ctx.drawImage(image, 0, 0, canvasW, canvasH);
 
-  
   const offsetX = 80;
   const offsetY = 40;
-  
+
   // text
-  const boxW = canvasW - offsetX * 2; // x 
+  const boxW = canvasW - offsetX * 2; // x
   const boxH = 380;
   const fontSize = 30 * 2;
   const fontSizeAscii = fontSize * 0.56;
@@ -63,14 +63,18 @@ export const createImage = async (text: string, name: string) => {
 
   console.log(newData);
   for (const index in newData) {
-    ctx.fillText(newData[index].join(""), offsetX, offsetY + (Number(index) + 1) * textH);
+    ctx.fillText(
+      newData[index].join(""),
+      offsetX,
+      offsetY + (Number(index) + 1) * textH
+    );
   }
   // end of message
 
   // name
-  ctx.fillStyle = "#ffffff"
+  ctx.fillStyle = "#ffffff";
   ctx.fillText(name, 40, 590);
-  
+
   const tmpResizeFile = path.join(os.tmpdir(), uuidv4());
   const saveFile = () => {
     return new Promise((resolve, reject) => {

@@ -18,6 +18,11 @@ export default createStore<State>({
     isSignedIn: (state: State) => {
       return state.user !== null && state.user !== undefined;
     },
+    isSubscribed: (state: State) => {
+      if (state.user) {
+        return true;
+      }
+    },
   },
   actions: {},
   modules: {},

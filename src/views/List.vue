@@ -1,15 +1,17 @@
 <template>
   <div class="mx-16 my-2 rounded-lg bg-white bg-opacity-70 p-2">
     <div v-for="(chat, k) in chats" :key="k">
-      <router-link :to="`/chats/${chat.id}`">
-        {{ chat.type }}
-        {{ (chat.histories || []).length }}
-        {{
-          cdate(chat.createdAt?.toDate())
-            .tz("Asia/Tokyo")
-            .format("YYYY/MM/DD HH:mm")
-        }}
-      </router-link>
+      <template v-if="(chat.histories || []).length > 0">
+        <router-link :to="`/chats/${chat.id}`">
+          {{ $t("title." + chat.type) }}
+          {{ (chat.histories || []).length }}
+          {{
+            cdate(chat.createdAt?.toDate())
+              .tz("Asia/Tokyo")
+              .format("YYYY/MM/DD HH:mm")
+          }}
+        </router-link>
+      </template>
     </div>
   </div>
 </template>

@@ -34,33 +34,31 @@ export const ask = async (
 
 const pickData = (array: string[]) => {
   const ret: string[] = [];
-  [1,2,3].map(() => {
+  [1, 2, 3].map(() => {
     const index = Math.floor(Math.random() * array.length);
     ret.push(array[index]);
     array.splice(index, 1);
   });
   return ret;
-}
+};
 export const promptsContents = (prompt: any) => {
   const message = prompt.prompt.join("\n");
   if (prompt.data) {
     const array = [...prompt.data];
     const ret = pickData(array);
     const newMessage = ret.reduce((tmp: string, word: string) => {
-      return tmp.replace("{random}", word)
+      return tmp.replace("{random}", word);
     }, message);
     return newMessage;
   }
   return message;
 };
-   
-
 
 //  eslint-disable-next-line
 export const createMessageEvent = async (snap: any, context: any) => {
   const data = snap.data();
   // const { chatId } = context.params;
-  const { message, uid } = data;
+  const { message, uid, introIndex } = data;
   console.log(message);
 
   const coll = await snap.ref.parent.get();
@@ -69,7 +67,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
     await snap.ref.delete();
     return;
   }
-  
+
   const updateHistoryErrorAndDelete = async () => {
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
     const histories = chatDataAgain.histories || [];
@@ -107,6 +105,11 @@ export const createMessageEvent = async (snap: any, context: any) => {
     }
 
     const prompt = (prompts as any)[type];
+    if (!prompt) {
+      await updateHistoryErrorAndDelete();
+      return;
+    }
+    //
     const messages: ChatCompletionRequestMessage[] = [];
     if (prompt) {
       messages.push({
@@ -123,6 +126,16 @@ export const createMessageEvent = async (snap: any, context: any) => {
         }
       );
     }
+    const hasFitstAssist =
+      !(chatData && chatData.histories && chatData.histories.length > 0) &&
+      prompt.intro;
+    // console.log(hasFitstAssist, !(chatData && chatData.histories && chatData.histories.length > 0), prompt.intro);
+    if (hasFitstAssist) {
+      messages.push({
+        role: "assistant",
+        content: prompt.intro[introIndex || 0],
+      });
+    }
 
     messages.push({
       role: "user",
@@ -135,12 +148,16 @@ export const createMessageEvent = async (snap: any, context: any) => {
       await updateHistoryErrorAndDelete();
       return;
     }
-    // console.log(answer?.content);
-
     //  update history
-    // const path = snap.ref.parent.parent.path;
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
     const histories = chatDataAgain.histories || [];
+    if (hasFitstAssist) {
+      histories.push({
+        role: "assistant",
+        content: prompt.intro[introIndex || 0] || "",
+      });
+    }
+
     histories.push({
       role: "user",
       content: message,
@@ -149,7 +166,11 @@ export const createMessageEvent = async (snap: any, context: any) => {
       role: answer?.role || "",
       content: answer?.content || "",
     });
-    await snap.ref.parent.parent.update({ histories, counter: histories.length });
+    console.log(histories);
+    await snap.ref.parent.parent.update({
+      histories,
+      counter: histories.length,
+    });
 
     await snap.ref.delete();
 

@@ -38,7 +38,7 @@ const ogpPage = async (req: any, res: any) => {
     encoding: "utf8",
   });
   res.setHeader("Content-Security-Policy", "frame-ancestors 'none'"),
-  res.setHeader("X-Frame-Options", "deny");
+    res.setHeader("X-Frame-Options", "deny");
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-XSS-Protection", "1; mode=block");
   res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
@@ -59,10 +59,13 @@ const ogpPage = async (req: any, res: any) => {
 
     const siteName = "インプロ(imprompt)";
     const pageTitle = botName + " - インプロ(imprompt)";
-    const description = chat.histories &&  chat.histories[0] ? ["質問", chat.histories[0].content].join(": ") : "";
+    const description =
+      chat.histories && chat.histories[0]
+        ? ["質問", chat.histories[0].content].join(": ")
+        : "";
 
     const image = chat.imageUrl || "";
-    
+
     const regexTitle = /<title.*title>/;
     const url = "https://llm-chat-6aa15.web.app/" + req.path;
 

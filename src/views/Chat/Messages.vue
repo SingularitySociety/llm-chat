@@ -1,22 +1,33 @@
 <template>
   <div class="message">
+    <!-- chat not yet -->
     <div
       v-if="
         (chat.histories || []).length === 0 && (histories || []).length === 0
       "
       class="m-4 text-left"
     >
-      <div class="flex">
-        {{ $t("chat.empty") }}
+      <div v-if="isWrittable && introIndex !== null">
+        <span class="font-bold">
+          {{ $t(botKey(chat.type)) }}
+        </span>
+        : {{ introMessage }}
       </div>
-      <div class="flex">
-        {{
-          $t("chat.emptyMessage", {
-            chara: $t("title." + (chat.type || "loading")),
-          })
-        }}
+      <div v-else>
+        <div class="flex">
+          {{ $t("chat.empty") }}
+        </div>
+        <div class="flex">
+          {{
+            $t("chat.emptyMessage", {
+              chara: $t("title." + (chat.type || "loading")),
+            })
+          }}
+        </div>
       </div>
     </div>
+
+    <!-- chat log -->
     <div
       v-else
       v-for="(v, k) in chat.histories || []"
@@ -66,6 +77,15 @@ export default defineComponent({
     chat: {
       type: Object as PropType<DocumentData>,
       required: true,
+    },
+    isWrittable: {
+      type: Boolean,
+    },
+    introMessage: {
+      type: String,
+    },
+    introIndex: {
+      type: Number,
     },
   },
   setup(props, ctx) {
