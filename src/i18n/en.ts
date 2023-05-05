@@ -12,6 +12,7 @@ const lang = {
   chat: {
     submit: "Submit",
     empty: "No chat yet.",
+    emptyMessage: "{chara}に話かけてチャットを始めよう！",
   },
   title: {
     accountant: "Accountant",

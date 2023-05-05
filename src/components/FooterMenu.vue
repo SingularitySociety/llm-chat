@@ -1,7 +1,9 @@
 <template>
   <div class="p-10">
     <template v-if="isSignedIn">
-      <span @click="signout" class="text-white font-bold">{{ $t("signout") }}</span>
+      <span @click="signout" class="font-bold text-white">{{
+        $t("signout")
+      }}</span>
     </template>
   </div>
 </template>

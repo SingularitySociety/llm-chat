@@ -4,9 +4,18 @@
       v-if="
         (chat.histories || []).length === 0 && (histories || []).length === 0
       "
-      class="m-4 flex text-left"
+      class="m-4 text-left"
     >
-      {{ $t("chat.empty") }}
+      <div class="flex">
+        {{ $t("chat.empty") }}
+      </div>
+      <div class="flex">
+        {{
+          $t("chat.emptyMessage", {
+            chara: $t("title." + (chat.type || "loading")),
+          })
+        }}
+      </div>
     </div>
     <div
       v-else

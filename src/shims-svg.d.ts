@@ -1,4 +1,4 @@
 /* eslint-disable */
-declare module '*.svg?raw' {
+declare module "*.svg?raw" {
   export default string;
 }

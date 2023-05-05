@@ -1,5 +1,5 @@
 <template>
-  <div class="layout min-h-screen font-noto font-medium h-full">
+  <div class="layout h-full min-h-screen font-noto font-medium">
     <HeaderMenu />
     <router-view />
     <FooterMenu />

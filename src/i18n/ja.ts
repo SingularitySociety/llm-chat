@@ -17,7 +17,8 @@ const lang = {
   },
   chat: {
     submit: "送信",
-    empty: "まだ会話が有りません",
+    empty: "まだ会話が有りません。",
+    emptyMessage: "{chara}に話かけてチャットを始めよう！",
   },
   title,
   bot,
