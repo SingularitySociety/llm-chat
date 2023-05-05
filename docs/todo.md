@@ -38,8 +38,9 @@
   - twitter(done)
   - SMS(not support)
 - feature
+  - 最初に話す会話サンプルを入れる
   - 会話数は、dbにも入れておく
-  - メッセージ連打できない
+  - メッセージ連打できない(done)
   - fontかえる(done)
   - chatにいいね
     - らんきんぐ

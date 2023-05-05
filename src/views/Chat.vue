@@ -86,7 +86,6 @@ import Messages from "@/views/Chat/Messages.vue";
 import Share from "@/components/Share.vue";
 
 export default defineComponent({
-  name: "HomePage",
   components: {
     Messages,
     Share,

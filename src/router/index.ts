@@ -7,6 +7,7 @@ import Home from "@/views/Home.vue";
 import Account from "@/views/Account.vue";
 import About from "@/views/About.vue";
 import Chat from "@/views/Chat.vue";
+import List from "@/views/List.vue";
 
 const routeChildren: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,10 @@ const routeChildren: Array<RouteRecordRaw> = [
   {
     path: "chats/:chatId",
     component: Chat,
+  },
+  {
+    path: "list",
+    component: List,
   },
 ];
 

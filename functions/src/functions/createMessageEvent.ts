@@ -149,7 +149,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
       role: answer?.role || "",
       content: answer?.content || "",
     });
-    await snap.ref.parent.parent.update({ histories });
+    await snap.ref.parent.parent.update({ histories, counter: histories.length });
 
     await snap.ref.delete();
 
