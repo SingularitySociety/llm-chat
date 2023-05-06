@@ -10,6 +10,9 @@ import About from "@/views/About.vue";
 import Chat from "@/views/Chat.vue";
 import List from "@/views/List.vue";
 
+import Terms from "@/views/Docs/Terms.vue";
+import Privacy from "@/views/Docs/Privacy.vue";
+
 const routeChildren: Array<RouteRecordRaw> = [
   {
     path: "",
@@ -34,6 +37,14 @@ const routeChildren: Array<RouteRecordRaw> = [
   {
     path: "list",
     component: List,
+  },
+  {
+    path: "terms",
+    component: Terms,
+  },
+  {
+    path: "privacy",
+    component: Privacy,
   },
 ];
 
