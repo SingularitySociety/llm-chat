@@ -7,13 +7,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted } from "vue";
+import { defineComponent, reactive, onMounted, watch, computed } from "vue";
 import { useStore } from "vuex";
 
 import { auth } from "@/utils/firebase";
 import { User, signInAnonymously } from "firebase/auth";
 
 import { useI18nParam } from "@/i18n/utils";
+import { cdate } from "cdate";
+import { useTimer } from "@/utils/utils";
+
+import {
+  doc,
+  onSnapshot,
+  Unsubscribe,
+} from "firebase/firestore";
+import { db } from "@/utils/firebase";
 
 import HeaderMenu from "@/components/HeaderMenu.vue";
 import FooterMenu from "@/components/FooterMenu.vue";
@@ -33,6 +42,8 @@ export default defineComponent({
     const user = reactive<UserData>({ user: null });
     useI18nParam();
 
+    const date = useTimer();
+    
     onMounted(() => {
       auth.onAuthStateChanged((fbuser) => {
         if (fbuser) {
@@ -44,6 +55,25 @@ export default defineComponent({
           // signInAnonymously(auth);
         }
       });
+    });
+    let detacher: Unsubscribe | null = null;
+
+    watch([user, date], () => {
+      if (detacher) {
+        detacher()
+      }
+      detacher = null;
+      if (user.user) {
+        console.log(date);
+        const path = `users/${user.user.uid}/statistics/${date.value}`;
+        // console.log(path);
+        detacher = onSnapshot(
+          doc(db, path),
+          async (snapshot) => {
+            store.commit("setStatistics", snapshot.data())
+            // console.log(snapshot.data());
+          })
+      }
     });
 
     return {

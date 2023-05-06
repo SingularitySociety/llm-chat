@@ -7,3 +7,9 @@ export const firebaseConfig = {
   appId: "1:101269450800:web:e07081d305ceb6b9d2bdf5",
   measurementId: "G-964FFMF83X",
 };
+
+export const specialUid = [
+  "KWTd9JGsUgYwapmjfCyRP5oXS5q1", // t
+  "LypMtXbC7GXm7eoo5RXh6hvDJjf1", // s
+  "wjQMOHQJZid3o2WmA7kvGOHhWy63", // i
+]

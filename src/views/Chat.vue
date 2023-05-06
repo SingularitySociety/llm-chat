@@ -95,6 +95,7 @@ import { db } from "@/utils/firebase";
 import { useUser, useError, errorFuncBase } from "@/utils/utils";
 import { stringLength } from "@/utils/common";
 import { prompts } from "@/utils/prompts";
+import { useStore } from "vuex";
 
 import Messages from "@/views/Chat/Messages.vue";
 import Share from "@/components/Share.vue";
@@ -105,6 +106,7 @@ export default defineComponent({
     Share,
   },
   setup() {
+    const store = useStore();
     const route = useRoute();
     const user = useUser();
     const message = ref("");
@@ -135,7 +137,7 @@ export default defineComponent({
     });
 
     const isWrittable = computed(() => {
-      return user.value && chat.value.uid === user.value.uid;
+      return user.value && chat.value.uid === user.value.uid && store.getters.canCreateMessage; 
     });
 
     const isWriting = ref(false);
@@ -222,6 +224,8 @@ export default defineComponent({
       notFound,
       introIndex,
       introMessage,
+
+      store,
     };
   },
 });

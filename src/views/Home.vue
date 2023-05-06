@@ -4,13 +4,23 @@
     <h2 class="text-lg font-bold" v-else>{{ $t("home.requireLogin") }}</h2>
     <div>
       <div v-if="user" class="font-bold text-white">
-        １日にチャットが出来る相手は１人だけ。ここから選んでね。
+        １日にチャットが出来る相手は１人だけ。
+        <div v-if="!store.getters.canCreateChat">
+         明日、また試すか、チャット履歴から選んでね。
+        </div>
+        <div v-else>
+          ここから選んでね。
+        </div>
+        <div v-if="store.state.statistics">
+          Today /{{ store.state.statistics.chatCounter }} Chat / 
+          {{ store.state.statistics.messageCounter }} Message
+        </div>
       </div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
         <button
           class="m-2 rounded-lg bg-sky-400 p-2 font-bold text-white"
           @click="choose(v)"
-          v-if="user"
+          v-if="user && store.getters.canCreateChat"
         >
           {{ $t("title." + v) }}
         </button>
@@ -41,6 +51,7 @@ import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { useRouter } from "vue-router";
 import { useLang } from "@/i18n/utils";
+import { useStore } from "vuex";
 
 import History from "@/views/Home/History.vue";
 import Login from "@/views/Login.vue";
@@ -52,9 +63,11 @@ export default defineComponent({
     Login,
   },
   setup() {
-    const historyRef = ref();
+    const store = useStore();
     const router = useRouter();
+
     const user = useUser();
+    const historyRef = ref();
     const { localizedUrl } = useLang();
 
     const choose = async (v: string) => {
@@ -91,6 +104,7 @@ export default defineComponent({
       historyRef,
       prompts,
       user,
+      store,
     };
   },
 });

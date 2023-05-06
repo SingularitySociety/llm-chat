@@ -1,5 +1,6 @@
-import { computed } from "vue";
+import { computed, ref, onUnmounted } from "vue";
 import { useStore } from "vuex";
+import { cdate } from "cdate";
 
 export const useUser = () => {
   const store = useStore();
@@ -50,4 +51,33 @@ export const useError = (errorFunc: () => { [key: string]: any[] }) => {
     isError,
     errorComments,
   };
+};
+
+export const sleep = async (seconds: number) => {
+  return await new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+};
+
+export const useTimer = () => {
+  const getCurrentTime = () => {
+    return cdate().format("YYYYMMDD");
+  };
+  return useTimerBase(getCurrentTime, 10);
+};
+
+export const useTimerBase = (getCurrentTime: () => any, sleepTime?: number) => {
+  let loop = true;
+
+  const now = ref(getCurrentTime());
+
+  onUnmounted(() => {
+    loop = false;
+  });
+  (async () => {
+    while (loop) {
+      now.value = getCurrentTime();
+      await sleep(sleepTime || 0.1);
+    }
+  })();
+
+  return now;
 };
