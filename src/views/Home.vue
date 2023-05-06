@@ -15,20 +15,22 @@
         </div>
       </div>
       <span v-for="(v, k) in Object.keys(prompts)" :key="k">
-        <button
-          class="m-2 rounded-lg bg-sky-400 p-2 font-bold text-white"
-          @click="choose(v)"
-          v-if="user && store.getters.canCreateChat"
-        >
-          {{ $t("title." + v) }}
-        </button>
-        <button
-          class="m-2 rounded-lg bg-sky-400 bg-opacity-40 p-2 font-bold text-white text-opacity-40"
-          :disabled="true"
-          v-else
-        >
-          {{ $t("title." + v) }}
-        </button>
+        <template v-if="!prompts[v].wip">
+          <button
+            class="m-2 rounded-lg bg-sky-400 p-2 font-bold text-white"
+            @click="choose(v)"
+            v-if="user && store.getters.canCreateChat"
+            >
+            {{ $t("title." + v) }}
+          </button>
+          <button
+            class="m-2 rounded-lg bg-sky-400 bg-opacity-40 p-2 font-bold text-white text-opacity-40"
+            :disabled="true"
+            v-else
+            >
+            {{ $t("title." + v) }}
+          </button>
+        </template>
       </span>
     </div>
 
