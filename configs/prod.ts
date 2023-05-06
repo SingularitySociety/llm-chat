@@ -8,7 +8,7 @@ export const firebaseConfig = {
   measurementId: "G-1FJZKZK78V"
 };
 
-export const specialUid = [
+export const specialUid: string[] = [
 ];
 
 export const chatCreationlimit = 2;

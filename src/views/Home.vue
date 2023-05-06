@@ -6,13 +6,11 @@
       <div v-if="user" class="font-bold text-white">
         １日にチャットが出来る相手は１人だけ。
         <div v-if="!store.getters.canCreateChat">
-         明日、また試すか、チャット履歴から選んでね。
+          今日はもう新しいチャットは開始できません。チャット履歴から選んでね。
         </div>
-        <div v-else>
-          ここから選んでね。
-        </div>
+        <div v-else>ここから選んでね。</div>
         <div v-if="store.state.statistics">
-          Today /{{ store.state.statistics.chatCounter }} Chat / 
+          Today /{{ store.state.statistics.chatCounter }} Chat /
           {{ store.state.statistics.messageCounter }} Message
         </div>
       </div>
@@ -35,8 +33,11 @@
     </div>
 
     <div v-if="user === undefined" />
-    <History v-else-if="user" class="rounded-lg bg-white bg-opacity-70"
-             ref="historyRef"/>
+    <History
+      v-else-if="user"
+      class="rounded-lg bg-white bg-opacity-70"
+      ref="historyRef"
+    />
     <div v-else>
       <Login />
     </div>
@@ -77,14 +78,14 @@ export default defineComponent({
       }
       if (historyRef.value.histories && historyRef.value.histories.length > 0) {
         const match = historyRef.value.histories.find((a: any) => {
-          return a.type === v && a.counter === 0
+          return a.type === v && a.counter === 0;
         });
         if (match) {
           router.push(localizedUrl(`/chats/${match.id}`));
-          return 
+          return;
         }
       }
-      
+
       const uid = user.value?.uid;
       if (uid && v) {
         const data = {

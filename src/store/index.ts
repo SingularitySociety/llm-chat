@@ -1,7 +1,11 @@
 import { createStore } from "vuex";
 import { User } from "firebase/auth";
 import { DocumentData } from "firebase/firestore";
-import { specialUid, chatCreationlimit, messageCreationlimit } from "@/config/project";
+import {
+  specialUid,
+  chatCreationlimit,
+  messageCreationlimit,
+} from "@/config/project";
 
 interface State {
   user: User | null | undefined;
@@ -31,12 +35,19 @@ export default createStore<State>({
       }
     },
     canCreateChat: (state: State) => {
-      return state.user && (
-        (((state.statistics || {}).chatCounter || 0) < chatCreationlimit) || specialUid.includes(state.user.uid));
+      return (
+        state.user &&
+        (((state.statistics || {}).chatCounter || 0) < chatCreationlimit ||
+          specialUid.includes(state.user.uid))
+      );
     },
     canCreateMessage: (state: State) => {
-      return state.user && (
-        (((state.statistics || {}).messageCounter || 0) < messageCreationlimit) || specialUid.includes(state.user.uid));
+      return (
+        state.user &&
+        (((state.statistics || {}).messageCounter || 0) <
+          messageCreationlimit ||
+          specialUid.includes(state.user.uid))
+      );
     },
   },
   actions: {},

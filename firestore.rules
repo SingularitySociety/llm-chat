@@ -17,6 +17,10 @@ service cloud.firestore {
       allow read: if uid == request.auth.uid;
       allow create, update, delete: if false;
     }
+    match /users/{uid} {
+      allow read: if true;
+      allow create, update, delete: if uid == request.auth.uid;
+    }
 
     match /message/{messageId} {
       allow read, create;

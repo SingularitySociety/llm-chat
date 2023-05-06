@@ -10,6 +10,7 @@ const lang = {
   twitterLogin: "Twitterでログイン",
   menu: {
     signout: "ログアウト",
+    account: "アカウント",
     home: "ホーム",
   },
   chatUser: "あなた",

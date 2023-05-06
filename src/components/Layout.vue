@@ -19,8 +19,11 @@ import { useTimer } from "@/utils/utils";
 
 import {
   doc,
+  setDoc,
+  getDoc,
   onSnapshot,
   Unsubscribe,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
@@ -43,10 +46,11 @@ export default defineComponent({
     useI18nParam();
 
     const date = useTimer();
-    
+
     onMounted(() => {
       auth.onAuthStateChanged((fbuser) => {
         if (fbuser) {
+          console.log(fbuser.displayName);
           console.log("authStateChanged:");
           user.user = fbuser;
           store.commit("setUser", fbuser);
@@ -58,21 +62,31 @@ export default defineComponent({
     });
     let detacher: Unsubscribe | null = null;
 
+    watch(user, async () => {
+      if (user.user) {
+        const muser = await getDoc(doc(db, `users/${user.user.uid}`));
+        if (!muser.exists()) {
+          await setDoc(doc(db, `users/${user.user.uid}`), {
+            nickName: user.user.displayName,
+            createdAt: serverTimestamp(),
+          });
+        }
+      }
+    });
+
     watch([user, date], () => {
       if (detacher) {
-        detacher()
+        detacher();
       }
       detacher = null;
       if (user.user) {
         // console.log(date);
         const path = `users/${user.user.uid}/statistics/${date.value}`;
         // console.log(path);
-        detacher = onSnapshot(
-          doc(db, path),
-          async (snapshot) => {
-            store.commit("setStatistics", snapshot.data())
-            // console.log(snapshot.data());
-          })
+        detacher = onSnapshot(doc(db, path), async (snapshot) => {
+          store.commit("setStatistics", snapshot.data());
+          // console.log(snapshot.data());
+        });
       }
     });
 

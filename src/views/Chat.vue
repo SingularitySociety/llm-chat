@@ -137,7 +137,11 @@ export default defineComponent({
     });
 
     const isWrittable = computed(() => {
-      return user.value && chat.value.uid === user.value.uid && store.getters.canCreateMessage; 
+      return (
+        user.value &&
+        chat.value.uid === user.value.uid &&
+        store.getters.canCreateMessage
+      );
     });
 
     const isWriting = ref(false);
