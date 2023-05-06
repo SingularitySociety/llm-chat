@@ -25,15 +25,16 @@
     </div>
 
     <div v-if="user === undefined" />
-    <History v-else-if="user" class="rounded-lg bg-white bg-opacity-70" />
+    <History v-else-if="user" class="rounded-lg bg-white bg-opacity-70"
+             ref="historyRef"/>
     <div v-else>
-      <Account />
+      <Login />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { prompts } from "@/utils/prompts";
 import { useUser } from "@/utils/utils";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
@@ -42,24 +43,35 @@ import { useRouter } from "vue-router";
 import { useLang } from "@/i18n/utils";
 
 import History from "@/views/Home/History.vue";
-import Account from "@/views/Account.vue";
+import Login from "@/views/Login.vue";
 
 export default defineComponent({
   name: "HomePage",
   components: {
     History,
-    Account,
+    Login,
   },
   setup() {
+    const historyRef = ref();
     const router = useRouter();
     const user = useUser();
     const { localizedUrl } = useLang();
 
     const choose = async (v: string) => {
       if (!user.value) {
-        router.push(localizedUrl("/account"));
+        router.push(localizedUrl("/login"));
         return;
       }
+      if (historyRef.value.histories && historyRef.value.histories.length > 0) {
+        const match = historyRef.value.histories.find((a: any) => {
+          return a.type === v && a.counter === 0
+        });
+        if (match) {
+          router.push(localizedUrl(`/chats/${match.id}`));
+          return 
+        }
+      }
+      
       const uid = user.value?.uid;
       if (uid && v) {
         const data = {
@@ -76,6 +88,7 @@ export default defineComponent({
 
     return {
       choose,
+      historyRef,
       prompts,
       user,
     };
