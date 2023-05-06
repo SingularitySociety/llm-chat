@@ -55,7 +55,7 @@
 
     <div v-for="(v, k) in histories || []" class="m-4 flex text-left" :key="k">
       <span class="font-bold">
-        {{ $t("chatUser") }}
+        {{ $t(youKey(chat.type)) }}
       </span>
       :
       {{ v.message }} ( {{ $t("title.loading") }})

@@ -6,7 +6,7 @@
     </div>
     <div v-else>
       <div v-for="(h, k) in histories" :key="k" class="mx-2 text-left">
-        <router-link :to="`chats/${h.id}`">
+        <router-link :to="localizedUrl(`/chats/${h.id}`)">
           {{ $t("title." + h.type) }}
           {{
             cdate(h.createdAt?.toDate())

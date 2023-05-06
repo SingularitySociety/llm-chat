@@ -12,17 +12,19 @@
 import { defineComponent } from "vue";
 import { twitterSignin } from "../utils/SocialLogin";
 import { useRouter } from "vue-router";
+import { useLang } from "@/i18n/utils";
 
 export default defineComponent({
   name: "AccountPage",
   setup() {
     const router = useRouter();
+    const { localizedUrl } = useLang();
 
     return {
       twitterSignin: twitterSignin(
         () => {
           // alert("OK");
-          router.push("/");
+          router.push(localizedUrl("/"));
           console.log("ok");
         },
         (err) => {
