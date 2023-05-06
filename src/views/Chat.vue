@@ -128,7 +128,7 @@ export default defineComponent({
             introMessage.value = prompt.intro[introIndex.value];
           }
         }
-        if (prompt.sample) {
+        if (prompt.sample && !isWriting.value) {
           message.value = prompt.sample;
         }
       }
