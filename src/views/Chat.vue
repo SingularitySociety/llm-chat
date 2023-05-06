@@ -5,6 +5,7 @@
       <div class="m-2 text-3xl font-bold text-white">
         {{ $t("title." + (chat.type || "loading")) }}
       </div>
+      <div class="mb-2 font-bold text-white">@{{ muser?.nickName }}</div>
       <!-- Message -->
       <div v-if="user === undefined" />
       <div
@@ -90,6 +91,7 @@ import {
   onSnapshot,
   query,
   Unsubscribe,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { useUser, useError, errorFuncBase } from "@/utils/utils";
@@ -109,6 +111,7 @@ export default defineComponent({
     const store = useStore();
     const route = useRoute();
     const user = useUser();
+    const muser = ref<DocumentData | null>(null);
     const message = ref("");
 
     const messageRef = ref();
@@ -122,16 +125,25 @@ export default defineComponent({
     onSnapshot(doc(db, `chats/${chatId}`), (c) => {
       chat.value = c.data() || {};
       notFound.value = !c.data();
-      if (!notFound.value && !chat.value.histories) {
-        const prompt = (prompts as any)[chat.value.type];
-        if (!prompt.wip) {
-          if (prompt.intro && introIndex.value === null) {
-            introIndex.value = Math.floor(Math.random() * prompt.intro.length);
-            introMessage.value = prompt.intro[introIndex.value];
+
+      if (!notFound.value) {
+        getDoc(doc(db, `users/${chat.value.uid}`)).then((a) => {
+          muser.value = a.data() || null;
+        });
+
+        if (!chat.value.histories) {
+          const prompt = (prompts as any)[chat.value.type];
+          if (!prompt.wip) {
+            if (prompt.intro && introIndex.value === null) {
+              introIndex.value = Math.floor(
+                Math.random() * prompt.intro.length
+              );
+              introMessage.value = prompt.intro[introIndex.value];
+            }
           }
-        }
-        if (prompt.sample && !isWriting.value) {
-          message.value = prompt.sample;
+          if (prompt.sample && !isWriting.value) {
+            message.value = prompt.sample;
+          }
         }
       }
     });
@@ -213,6 +225,7 @@ export default defineComponent({
       chat,
       user,
       message,
+      muser,
       writeMessage,
 
       messageRef,

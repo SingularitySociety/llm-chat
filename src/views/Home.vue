@@ -20,14 +20,14 @@
             class="m-2 rounded-lg bg-sky-400 p-2 font-bold text-white"
             @click="choose(v)"
             v-if="user && store.getters.canCreateChat"
-            >
+          >
             {{ $t("title." + v) }}
           </button>
           <button
             class="m-2 rounded-lg bg-sky-400 bg-opacity-40 p-2 font-bold text-white text-opacity-40"
             :disabled="true"
             v-else
-            >
+          >
             {{ $t("title." + v) }}
           </button>
         </template>
@@ -37,12 +37,10 @@
     <div v-if="user === undefined" />
     <History
       v-else-if="user"
-      class="rounded-lg bg-white bg-opacity-70 py-4 mb-8"
+      class="mb-8 rounded-lg bg-white bg-opacity-70 py-4"
       ref="historyRef"
-      />
-    <div
-      class="rounded-lg bg-white bg-opacity-70 py-4"
-      >
+    />
+    <div class="rounded-lg bg-white bg-opacity-70 py-4">
       <List />
     </div>
     <div v-if="user === null">
