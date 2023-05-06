@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted, watch, computed } from "vue";
+import { defineComponent, ref, onMounted, watch, computed } from "vue";
 import { useStore } from "vuex";
 
 import { auth } from "@/utils/firebase";
@@ -42,7 +42,7 @@ export default defineComponent({
   },
   async setup() {
     const store = useStore();
-    const user = reactive<UserData>({ user: null });
+    const user = ref<User | null>(null);
     useI18nParam();
 
     const date = useTimer();
@@ -50,12 +50,12 @@ export default defineComponent({
     onMounted(() => {
       auth.onAuthStateChanged((fbuser) => {
         if (fbuser) {
-          console.log(fbuser.displayName);
           console.log("authStateChanged:");
-          user.user = fbuser;
+          user.value = fbuser;
           store.commit("setUser", fbuser);
         } else {
           store.commit("setUser", null);
+          user.value = null;
           // signInAnonymously(auth);
         }
       });
@@ -63,11 +63,11 @@ export default defineComponent({
     let detacher: Unsubscribe | null = null;
 
     watch(user, async () => {
-      if (user.user) {
-        const muser = await getDoc(doc(db, `users/${user.user.uid}`));
+      if (user.value) {
+        const muser = await getDoc(doc(db, `users/${user.value.uid}`));
         if (!muser.exists()) {
-          await setDoc(doc(db, `users/${user.user.uid}`), {
-            nickName: user.user.displayName,
+          await setDoc(doc(db, `users/${user.value.uid}`), {
+            nickName: user.value.displayName,
             createdAt: serverTimestamp(),
           });
         }
@@ -79,13 +79,11 @@ export default defineComponent({
         detacher();
       }
       detacher = null;
-      if (user.user) {
+      if (user.value) {
         // console.log(date);
-        const path = `users/${user.user.uid}/statistics/${date.value}`;
-        // console.log(path);
+        const path = `users/${user.value.uid}/statistics/${date.value}`;
         detacher = onSnapshot(doc(db, path), async (snapshot) => {
           store.commit("setStatistics", snapshot.data());
-          // console.log(snapshot.data());
         });
       }
     });

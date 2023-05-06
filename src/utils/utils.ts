@@ -9,7 +9,7 @@ export const useUser = () => {
 };
 export const useIsSignedIn = () => {
   const store = useStore();
-  const isSignedIn = computed(() => store.getters.isSignedIn);
+  const isSignedIn = computed(() => !!store.state.user);
   return isSignedIn;
 };
 

@@ -23,7 +23,6 @@ export default defineComponent({
     return {
       twitterSignin: twitterSignin(
         () => {
-          // alert("OK");
           router.push(localizedUrl("/"));
           console.log("ok");
         },
