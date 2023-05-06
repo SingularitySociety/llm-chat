@@ -81,3 +81,12 @@ export const useTimerBase = (getCurrentTime: () => any, sleepTime?: number) => {
 
   return now;
 };
+
+export const arrayChunk = <T>(arr: T[], size = 1) => {
+  const array = [...arr];
+  return array.reduce((current: T[][], value: T, index: number) => {
+    return index % size
+      ? current
+      : [...current, array.slice(index, index + size)];
+  }, []);
+};

@@ -37,10 +37,15 @@
     <div v-if="user === undefined" />
     <History
       v-else-if="user"
-      class="rounded-lg bg-white bg-opacity-70"
+      class="rounded-lg bg-white bg-opacity-70 py-4 mb-8"
       ref="historyRef"
-    />
-    <div v-else>
+      />
+    <div
+      class="rounded-lg bg-white bg-opacity-70 py-4"
+      >
+      <List />
+    </div>
+    <div v-if="user === null">
       <Login />
     </div>
   </div>
@@ -57,6 +62,7 @@ import { useLang } from "@/i18n/utils";
 import { useStore } from "vuex";
 
 import History from "@/views/Home/History.vue";
+import List from "@/components/List.vue";
 import Login from "@/views/Login.vue";
 
 export default defineComponent({
@@ -64,6 +70,7 @@ export default defineComponent({
   components: {
     History,
     Login,
+    List,
   },
   setup() {
     const store = useStore();

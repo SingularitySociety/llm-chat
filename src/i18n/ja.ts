@@ -19,6 +19,7 @@ const lang = {
     chooseOne: "話す相手を選ぶ",
     requireLogin: "ログインしてチャットを始めよう！",
     history: "チャット履歴",
+    list: "みんなのチャット",
     noHistory: "まだチャットは有りません",
   },
   chat: {

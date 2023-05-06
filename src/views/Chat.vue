@@ -8,7 +8,7 @@
       <!-- Message -->
       <div v-if="user === undefined" />
       <div
-        v-else-if="user === null"
+        v-else-if="user === null || user.uid !== chat.uid"
         class="mx-8 flex-col rounded-lg bg-white bg-opacity-70 py-2"
       >
         <Messages :chat="chat" />

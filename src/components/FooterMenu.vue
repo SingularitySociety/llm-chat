@@ -5,14 +5,14 @@
         {{ $t("menu.home") }}
       </router-link>
     </span>
-    <template v-if="isSignedIn">
+    <span v-if="isSignedIn">
       |<router-link :to="localizedUrl('/account')">{{
         $t("menu.account")
       }}</router-link>
       |<span @click="signout" class="cursor-pointer">{{
         $t("menu.signout")
       }}</span>
-    </template>
+    </span>
   </div>
 </template>
 
