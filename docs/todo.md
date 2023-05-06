@@ -1,5 +1,5 @@
-- for alpha
-  - ユーザページ（自分のアカウントの利用状況などの確認)
+- for alpha(done)
+  - ユーザページ（自分のアカウントの利用状況などの確認) 
   - snsの挙動(SNSシェアがモバイルでうまくいかないかも）
   - チャット一覧(どこに、どのように表示を入れえる？）
   - ユーザ名？（を登録させて、一覧に表示させる？）
@@ -39,15 +39,15 @@
 - シェア
   - SNS  (done)
   - OGP (done)
-    - OGP image frame.
+    - OGP image frame.(done)
 - 認証
   - twitter(done)
   - SMS(not support)
 - feature
   - ユーザ情報
-    - 統計(１日なんかい？）
+    - 統計(１日なんかい？）(done)
     - 課金情報
-    - twitter アカウント、ユーザ名 
+    - twitter アカウント、ユーザ名 (done)
   - 運営側のユーザフラグ
   - ログイン導線(done)
   - 最初に話す会話サンプルを入れる(done)
@@ -86,7 +86,7 @@
     - firebase(done)
     - mail(done)
 - secure
-  - app check
+  - app check(done)
 - devとprod環境を作る(done)
 - 無料の状態でシェアした人、先着１００人に一ヶ月分にクーポン発行
 - 

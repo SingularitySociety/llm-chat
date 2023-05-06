@@ -17,6 +17,12 @@ cp src/i18n/ja/title.ts functions/src/i18n/title.ts
 yarn run serve
 ```
 
+## AppCheck
+
+
+This app is using AppCheck on firebase for cross origin verification.
+If you want to run it locally, share `App Check debug token` in the js console.
+
 ## config functions secret
 
 ```

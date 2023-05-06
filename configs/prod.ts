@@ -8,6 +8,8 @@ export const firebaseConfig = {
   measurementId: "G-1FJZKZK78V"
 };
 
+export const appCheckKey = "6LfyPuolAAAAAFeNku_LCPhtyJWZ1-gVGI2NH-81";
+
 export const specialUid: string[] = [
 ];
 
