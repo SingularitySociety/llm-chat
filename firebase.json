@@ -8,6 +8,7 @@
       "cp dist/index.html functions/templates/index.html",
       "cp src/utils/prompts.ts functions/src/utils/prompts.ts",
       "cp src/utils/common.ts functions/src/utils/common.ts",
+      "cp src/config/project.ts functions/src/utils/project.ts",
       "cp src/i18n/ja/title.ts functions/src/i18n/title.ts",
       "cp src/i18n/ja/you.ts functions/src/i18n/you.ts",
       "cp src/i18n/ja/bot.ts functions/src/i18n/bot.ts",

@@ -13,3 +13,6 @@ export const specialUid = [
   "LypMtXbC7GXm7eoo5RXh6hvDJjf1", // s
   "wjQMOHQJZid3o2WmA7kvGOHhWy63", // i
 ]
+
+export const chatCreationlimit = 2;
+export const messageCreationlimit = 20;

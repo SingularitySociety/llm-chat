@@ -10,3 +10,6 @@ export const firebaseConfig = {
 
 export const specialUid = [
 ];
+
+export const chatCreationlimit = 2;
+export const messageCreationlimit = 20;

@@ -64,7 +64,7 @@ export default defineComponent({
       }
       detacher = null;
       if (user.user) {
-        console.log(date);
+        // console.log(date);
         const path = `users/${user.user.uid}/statistics/${date.value}`;
         // console.log(path);
         detacher = onSnapshot(

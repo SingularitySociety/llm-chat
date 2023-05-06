@@ -4,6 +4,7 @@ import { prompts } from "../utils/prompts";
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
 import { historyTextCount, historyCount } from "../utils/common";
+import { specialUid, messageCreationlimit } from "../utils/project";
 
 const gpt_token = process.env.GPT_API_KEY;
 
@@ -61,6 +62,10 @@ export const createMessageEvent = async (snap: any, context: any) => {
   const { message, uid, introIndex } = data;
   console.log(message);
 
+  const db = snap.ref.firestore;
+  const path = getStatisticsPath(uid);
+
+  
   const coll = await snap.ref.parent.get();
   if (coll.docs.length > 1) {
     // duplicate
@@ -68,6 +73,17 @@ export const createMessageEvent = async (snap: any, context: any) => {
     return;
   }
 
+  // limit
+  const staticticsOld = (await db.doc(path).get()).data() || {};
+  const counter = (staticticsOld.messageCounter || 0);
+  if (!specialUid.includes(uid as string)) {
+    if (counter >= messageCreationlimit) {
+      await snap.ref.delete();
+      return 
+    }
+  }
+  
+  
   const updateHistoryErrorAndDelete = async () => {
     const chatDataAgain = (await snap.ref.parent.parent.get()).data() || {};
     const histories = chatDataAgain.histories || [];
@@ -177,8 +193,6 @@ export const createMessageEvent = async (snap: any, context: any) => {
     await snap.ref.delete();
 
     // update counter
-    const db = snap.ref.firestore;
-    const path = getStatisticsPath(uid);
     const statictics = (await db.doc(path).get()).data() || {};
     const counter = (statictics.messageCounter || 0) + 1;
     const newData = { ...statictics, messageCounter: counter };
