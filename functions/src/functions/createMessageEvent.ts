@@ -135,10 +135,12 @@ export const createMessageEvent = async (snap: any, context: any) => {
         content: prompt.intro[introIndex || 0],
       });
       await snap.ref.parent.parent.update({
-        histories: [{
-          role: "assistant",
-          content: prompt.intro[introIndex || 0] || "",
-        }],
+        histories: [
+          {
+            role: "assistant",
+            content: prompt.intro[introIndex || 0] || "",
+          },
+        ],
         counter: 1,
       });
     }

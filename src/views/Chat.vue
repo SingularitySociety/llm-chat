@@ -123,7 +123,7 @@ export default defineComponent({
       if (!notFound.value && !chat.value.histories) {
         const prompt = (prompts as any)[chat.value.type];
         if (!prompt.wip) {
-          if (prompt.intro) {
+          if (prompt.intro && introIndex.value === null) {
             introIndex.value = Math.floor(Math.random() * prompt.intro.length);
             introMessage.value = prompt.intro[introIndex.value];
           }

@@ -28,22 +28,37 @@
     </div>
 
     <!-- chat log -->
-    <div
-      v-else
-      v-for="(v, k) in chat.histories || []"
-      class="m-4 text-left"
-      :key="k"
-    >
-      <span class="font-bold">
-        {{ $t(v.role === "user" ? youKey(chat.type) : botKey(chat.type)) }}
-      </span>
-      :
-      {{ v.content }}
-      {{ v.hasError ? "error" : "" }}
+    <div v-else>
+      <div
+        v-if="(chat.histories || []).length === 0 && introIndex !== null"
+        class="m-4 text-left"
+      >
+        <span class="font-bold">
+          {{ $t(botKey(chat.type)) }}
+        </span>
+        : {{ introMessage }}
+      </div>
+
+      <div
+        v-for="(v, k) in chat.histories || []"
+        class="m-4 text-left"
+        :key="k"
+      >
+        <span class="font-bold">
+          {{ $t(v.role === "user" ? youKey(chat.type) : botKey(chat.type)) }}
+        </span>
+        :
+        {{ v.content }}
+        {{ v.hasError ? "error" : "" }}
+      </div>
     </div>
 
     <div v-for="(v, k) in histories || []" class="m-4 flex text-left" :key="k">
-      {{ $t("chatUser") }}: {{ v.message }} ( {{ $t("title.loading") }})
+      <span class="font-bold">
+        {{ $t("chatUser") }}
+      </span>
+      :
+      {{ v.message }} ( {{ $t("title.loading") }})
     </div>
   </div>
 </template>
