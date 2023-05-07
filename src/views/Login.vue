@@ -7,6 +7,7 @@
       {{ $t("twitterLogin") }}
     </a>
   </div>
+
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

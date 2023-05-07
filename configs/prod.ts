@@ -11,6 +11,8 @@ export const firebaseConfig = {
 export const appCheckKey = "6LfyPuolAAAAAFeNku_LCPhtyJWZ1-gVGI2NH-81";
 
 export const specialUid: string[] = [
+  "toR22bCiiuMNqfzCZSqnvVq4iAH3",
+  "03kzSdCpA4fWgyr47f7Dk9jlc1p1",
 ];
 
 export const chatCreationlimit = 2;

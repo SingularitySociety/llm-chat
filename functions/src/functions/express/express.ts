@@ -37,8 +37,8 @@ const ogpPage = async (req: any, res: any) => {
   const template_data = fs.readFileSync("./templates/index.html", {
     encoding: "utf8",
   });
-  res.setHeader("Content-Security-Policy", "frame-ancestors 'none'"),
-    res.setHeader("X-Frame-Options", "deny");
+  res.setHeader("Content-Security-Policy", "frame-ancestors 'none'");
+  res.setHeader("X-Frame-Options", "deny");
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-XSS-Protection", "1; mode=block");
   res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
@@ -81,12 +81,14 @@ const ogpPage = async (req: any, res: any) => {
       `<meta property="og:description" content="${escapeHtml(description)}" />`,
       `<meta property="og:image" content="${escapeHtml(image)}" />`,
       `<meta name="twitter:card" content="summary_large_image" />`,
-      `<meta name="twitter:site" content="@snakajima" />`,
-      `<meta name="twitter:creator" content="@snakajima" />`,
+      `<meta name="twitter:site" content="@_imprompt" />`,
+      `<meta name="twitter:creator" content="@_imprompt" />`,
       `<meta name="twitter:description" content="${escapeHtml(
         description
       )}" />`,
       `<meta name="twitter:image" content="${escapeHtml(image)}" />`,
+      `<meta name="msapplication-TileColor" content="#da532c" />`,
+      `<meta name="theme-color" content="#ffffff" />`,
     ];
 
     const regexBody = /<div id="app">/;
