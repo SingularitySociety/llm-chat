@@ -80,7 +80,6 @@ export default defineComponent({
       }
       detacher = null;
       if (user.value) {
-        // console.log(date);
         const path = `users/${user.value.uid}/statistics/${date.value}`;
         detacher = onSnapshot(doc(db, path), async (snapshot) => {
           store.commit("setStatistics", snapshot.data());

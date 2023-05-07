@@ -13,7 +13,7 @@
               .tz("Asia/Tokyo")
               .format("YYYY/MM/DD HH:mm")
           }}
-          ({{ Math.round((h.histories || []).length / 2) }}回)
+          ({{ Math.floor((h.histories || []).length / 2) }}回)
         </router-link>
       </div>
     </div>

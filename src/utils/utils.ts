@@ -59,7 +59,7 @@ export const sleep = async (seconds: number) => {
 
 export const useTimer = () => {
   const getCurrentTime = () => {
-    return cdate().format("YYYYMMDD");
+    return cdate().tz("Asia/Tokyo").format("YYYYMMDD");
   };
   return useTimerBase(getCurrentTime, 10);
 };
