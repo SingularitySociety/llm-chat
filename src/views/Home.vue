@@ -4,9 +4,9 @@
     <h2 class="text-lg font-bold" v-else>{{ $t("home.requireLogin") }}</h2>
     <div>
       <div v-if="user" class="font-bold text-white">
-        １日にチャットを作成できるのは２回だけ。
+        １日に話す相手を選べるのは２回だけ。
         <div v-if="!store.getters.canCreateChat">
-          今日はもう新しいチャットは開始できません。チャット履歴から選んでね。
+          今日はもう新しい相手を選べません。チャット履歴からトークを再開できるよ。
         </div>
         <div v-else>ここから選んでね。</div>
         <div v-if="store.state.statistics">
