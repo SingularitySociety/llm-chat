@@ -1,18 +1,26 @@
 <template>
   <div class="p-10 font-bold text-white">
-    <span>
-      <router-link to="/">
-        {{ $t("menu.home") }}
-      </router-link>
-    </span>
-    <span v-if="isSignedIn">
-      |<router-link :to="localizedUrl('/account')">{{
-        $t("menu.account")
-      }}</router-link>
-      |<span @click="signout" class="cursor-pointer">{{
-        $t("menu.signout")
-      }}</span>
-    </span>
+    <div>
+      <span>
+        <router-link :to="localizedUrl('/')">
+          {{ $t("menu.home") }}
+        </router-link>
+        |
+        <router-link :to="localizedUrl('/privacy')">
+          {{ $t("menu.privacy") }} 
+        </router-link>
+      </span>
+    </div>
+    <div v-if="isSignedIn">
+      <span>
+        <router-link :to="localizedUrl('/account')">{{
+          $t("menu.account")
+          }}</router-link>
+        |<span @click="signout" class="cursor-pointer">{{
+          $t("menu.signout")
+          }}</span>
+      </span>
+    </div>
   </div>
 </template>
 

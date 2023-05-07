@@ -2,7 +2,7 @@
   <div id="nav fl">
     <div class="flex items-center justify-center">
       <div class="flex-item">
-        <router-link to="/">
+        <router-link :to="localizedUrl('/')">
           <img :src="logo" class="h-10" />
         </router-link>
       </div>

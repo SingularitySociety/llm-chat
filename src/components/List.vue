@@ -2,7 +2,7 @@
   <div>
     <h2 class="text-lg font-bold">{{ $t("home.list") }}</h2>
     <div v-for="(chat, k) in chats" :key="k" class="mx-2 text-left">
-      <router-link :to="`/chats/${chat.id}`">
+      <router-link :to="localizedUrl(`/chats/${chat.id}`)">
         {{ $t("title." + chat.type) }}
         {{
           cdate(chat.createdAt?.toDate())

@@ -18,7 +18,6 @@ const appCheck = initializeAppCheck(firebaseApp, {
   isTokenAutoRefreshEnabled: true,
 });
 
-
 export const db = getFirestore();
 export const auth = getAuth();
 export const functions = getFunctions(firebaseApp, "asia-northeast1");

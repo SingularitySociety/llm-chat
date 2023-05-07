@@ -12,6 +12,7 @@ const lang = {
     signout: "ログアウト",
     account: "アカウント",
     home: "ホーム",
+    privacy: "プライバシーポリシー",
   },
   chatUser: "あなた",
   botUser: "回答",
