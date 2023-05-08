@@ -161,10 +161,17 @@ export const createMessageEvent = async (snap: any, context: any) => {
       });
     }
 
-    messages.push({
-      role: "user",
-      content: message + "(((日本語で答えてください)))",
-    });
+    if (!prompt.model) {
+      messages.push({
+        role: "user",
+        content: message + "(((日本語で答えてください)))",
+      });
+    } else {
+      messages.push({
+        role: "user",
+        content: message,
+      });
+    }
 
     const answer = await ask(messages, prompt.model || "gpt-3.5-turbo-0301");
     if (!answer) {
