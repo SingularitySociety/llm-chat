@@ -4,8 +4,12 @@ export const title = {
   crush: "ウミガメの「クラッシュ」",
   doraemon: "ドラえもん",
   goku: "ドラゴンボールの孫悟空",
+  iyashi: "癒し系のインタビュアー",
   kame: "ドラゴンボールの亀仙人",
   kanryo: "東大話法の官僚",
+  "lou-oshiba": "ルー大柴",
   obachan: "大阪のおばちゃんの英語教室",
+  obachan2: "大阪のおばちゃんの英語教室",
   shinjirou: "小泉進次郎",
+  shirankedo: "知らんけど☆",
 };

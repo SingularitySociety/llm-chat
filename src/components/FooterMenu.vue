@@ -7,7 +7,7 @@
         </router-link>
         |
         <router-link :to="localizedUrl('/privacy')">
-          {{ $t("menu.privacy") }} 
+          {{ $t("menu.privacy") }}
         </router-link>
       </span>
     </div>
@@ -15,10 +15,10 @@
       <span>
         <router-link :to="localizedUrl('/account')">{{
           $t("menu.account")
-          }}</router-link>
+        }}</router-link>
         |<span @click="signout" class="cursor-pointer">{{
           $t("menu.signout")
-          }}</span>
+        }}</span>
       </span>
     </div>
   </div>

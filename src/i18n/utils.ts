@@ -6,7 +6,7 @@ import { defaultLanguage, messages } from "./";
 
 export const i18nUtils = (app: App) => {
   app.config.globalProperties.localizedUrl = (path: string) => {
-    const lang = app.config.globalProperties.$route.params.lang || 'ja';
+    const lang = app.config.globalProperties.$route.params.lang || "ja";
     if (lang) {
       return `/${lang}` + path;
     }

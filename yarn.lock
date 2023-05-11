@@ -5290,7 +5290,7 @@ slash@^3.0.0:
 
 "slashGPT@https://github.com/snakajima/SlashGPT.git":
   version "0.0.0"
-  resolved "https://github.com/snakajima/SlashGPT.git#af9553313c700332553f34cb274ec1e49652ae15"
+  resolved "https://github.com/snakajima/SlashGPT.git#3dac92b902bd60430348af89bd91dff937d45179"
 
 sockjs@^0.3.24:
   version "0.3.24"
