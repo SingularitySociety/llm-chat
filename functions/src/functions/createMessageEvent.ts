@@ -132,7 +132,8 @@ export const createMessageEvent = async (snap: any, context: any) => {
         content: promptsContents(prompt),
       });
     }
-    if (chatData && chatData.histories) {
+
+    if (chatData && chatData.histories && type !== "lou-oshiba") {
       chatData.histories.map(
         (h: ChatCompletionRequestMessage & { hasError: boolean }) => {
           if (!h.hasError) {
@@ -140,7 +141,10 @@ export const createMessageEvent = async (snap: any, context: any) => {
           }
         }
       );
+    } else {
+      console.log("no history");
     }
+
     const hasFitstAssist =
       !(chatData && chatData.histories && chatData.histories.length > 0) &&
       prompt.intro;
