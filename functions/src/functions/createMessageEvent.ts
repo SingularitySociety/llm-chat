@@ -17,7 +17,7 @@ export const ask = async (
   messages: ChatCompletionRequestMessage[],
   model = "gpt-3.5-turbo-0301"
 ) => {
-  console.log(messages, model);
+  // console.log(messages, model);
   try {
     const response = await openai.createChatCompletion({
       model: model,
@@ -60,7 +60,7 @@ export const createMessageEvent = async (snap: any, context: any) => {
   const data = snap.data();
   // const { chatId } = context.params;
   const { message, uid, introIndex } = data;
-  console.log(message);
+  // console.log(message);
 
   const db = snap.ref.firestore;
   const path = getStatisticsPath(uid);
@@ -199,7 +199,6 @@ export const createMessageEvent = async (snap: any, context: any) => {
       role: answer?.role || "",
       content: answer?.content || "",
     });
-    console.log(histories);
     await snap.ref.parent.parent.update({
       histories,
       counter: histories.length,

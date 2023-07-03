@@ -61,7 +61,7 @@ export const createImage = async (text: string, name: string) => {
     }
   }
 
-  console.log(newData);
+  // console.log(newData);
   for (const index in newData) {
     ctx.fillText(
       newData[index].join(""),
