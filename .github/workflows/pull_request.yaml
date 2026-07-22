@@ -34,5 +34,22 @@ jobs:
         path: node_modules
         key: node-modules-${{ matrix.node-version }}-${{ hashFiles('yarn.lock') }}
     - run: yarn install --frozen-lockfile
+    - name: Write stub src/config/project.ts for CI build
+      run: |
+        mkdir -p src/config
+        cat > src/config/project.ts <<'EOF'
+        export const firebaseConfig = {
+          apiKey: "stub",
+          authDomain: "stub",
+          projectId: "stub",
+          storageBucket: "stub",
+          messagingSenderId: "stub",
+          appId: "stub",
+        };
+        export const appCheckKey = "stub";
+        export const specialUid: string[] = [];
+        export const chatCreationlimit = 0;
+        export const messageCreationlimit = 0;
+        EOF
     - run: yarn run lint
     - run: yarn run build
