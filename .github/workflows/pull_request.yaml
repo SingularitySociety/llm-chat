@@ -36,6 +36,7 @@ jobs:
     - run: yarn install --frozen-lockfile
     - name: Write stub src/config/project.ts for CI build
       run: |
+        mkdir -p src/config
         cat > src/config/project.ts <<'EOF'
         export const firebaseConfig = {
           apiKey: "stub",
