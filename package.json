@@ -35,7 +35,7 @@
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-vue": "^9.5.1",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.23",
     "prettier": "^2.7.1",
     "slashGPT": "https://github.com/snakajima/SlashGPT.git",
     "tailwindcss": "^3.2.1",
